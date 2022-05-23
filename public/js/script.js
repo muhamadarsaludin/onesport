@@ -21,7 +21,7 @@ const flashData = $(".flash-data").data("flashdata");
 if (flashData) {
   Swal.fire({
     icon: "success",
-    title: "Sportpedia",
+    title: "Onesport",
     text: flashData,
     showConfirmButton: false,
     timer: 1500,
