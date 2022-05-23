@@ -54,54 +54,6 @@
       </form>
     </div>
   </div>
-  <div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Daftar Arena <?= $facility['facility_name']; ?></h6>
-
-      <!-- <a href="/admin/sports/edit" class="btn btn-primary btn-icon-split">
-        <span class="icon text-white-50">
-          <i class="fas fa-pencil-alt"></i>
-        </span>
-        <span class="text">Edit Olahraga</span>
-      </a> -->
-    </div>
-    <div class="card-body">
-      <div class="container-fluid table-responsive">
-        <table class="table table-bordered" id="dataTable" cellspacing="0">
-          <table class="table table-bordered td-align-middle" id="dataVendors" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th width='100px'>Gambar</th>
-                <th>Kode Arena</th>
-                <th>Name Arena</th>
-                <th>Kategori</th>
-                <th>Vendor</th>
-                <th>Harga Sewa</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>No</th>
-                <th>Gambar</th>
-                <th>Kode Arena</th>
-                <th>Name Arena</th>
-                <th>Kategori</th>
-                <th>Vendor</th>
-                <th>Harga Sewa</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
-            <tbody>
-
-            </tbody>
-          </table>
-      </div>
-    </div>
-  </div>
 
 </section>
 
