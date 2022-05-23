@@ -49,7 +49,7 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $group['name']; ?></td>
-                <td>-</td>
+                <td><?= $group['user_amount']; ?></td>
                 <td class="text-center">
                   <a href="/admin/users/groups/detail/<?= $group['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/users/groups/edit/<?= $group['id']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>

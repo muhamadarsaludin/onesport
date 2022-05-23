@@ -23,7 +23,7 @@ extends BaseController
     $data = [
       'title'  => 'Group User',
       'active' => 'admin-users',
-      'groups'  => $this->groupsModel->get()->getResultArray()
+      'groups'  => $this->groupsModel->getAllGroup()->getResultArray()
     ];
     // dd($data);
     return view('dashboard/admin/users/groups/index', $data);
