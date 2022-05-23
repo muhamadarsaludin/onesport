@@ -20,6 +20,7 @@
                 <img src="/img/plus-circle.svg" class="main-preview icon-plus" />
               </label>
               <input id="image" name="image" type="file" class="<?= (session('errors.image') ? 'is-invalid' : ''); ?>" onchange="previewImg('image','main-preview')" />
+              <small id="emailHelp" class="form-text text-muted text-center">recommended size(1584x513 px).</small>
               <div class="invalid-feedback text-center">
                 <?= $validation->getError('image'); ?>
               </div>

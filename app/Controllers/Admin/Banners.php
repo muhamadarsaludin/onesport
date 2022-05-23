@@ -23,8 +23,9 @@ class Banners extends BaseController
     $data = [
       'title'  => 'Banner Informasi',
       'active' => 'admin-banners',
-      'banners'  => $this->bannersModel->getWhere(['venue_id' => null])->getResultArray()
+      'banners'  => $this->bannersModel->getAllBanner()->getResultArray()
     ];
+    // dd($data);
     return view('dashboard/admin/banners/index', $data);
   }
 

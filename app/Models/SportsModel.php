@@ -15,7 +15,7 @@ class SportsModel extends Model
   {
     $query = "SELECT `s`.*, COUNT(`a`.`id`) AS 'arena_amount'
     FROM `sports` AS `s`
-    JOIN `arena` AS `a`
+    LEFT JOIN `arena` AS `a`
     ON `s`.`id` = `a`.`sport_id`
     ";
     return $this->db->query($query);
