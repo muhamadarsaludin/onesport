@@ -37,7 +37,7 @@ class Sports extends BaseController
       'title'  => 'Detail Olahraga',
       'active' => 'admin-sports',
       'sport' => $this->sportsModel->getWhere(['id' => $id])->getRowArray(),
-      // 'arenas' => $this->arenaModel->getArenaBySportId($id),
+      'arenas' => $this->arenaModel->getArenaBySportId($id)->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/admin/sports/detail', $data);

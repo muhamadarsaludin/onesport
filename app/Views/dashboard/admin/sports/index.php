@@ -31,6 +31,7 @@
               <th width="100">Icon</th>
               <th>Nama Olahraga</th>
               <th>Banyak Arena</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>

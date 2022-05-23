@@ -70,4 +70,20 @@ class ArenaModel extends Model
     ";
     return $this->db->query($query);
   }
+
+
+  public function getArenaBySportId($id)
+  {
+    $query = "SELECT `a`.*,`s`.`sport_name`,`v`.`slug` as `venue_slug`,`v`.`venue_name`,`v`.`logo`,`v`.`city`,`v`.`province`,`v`.`postal_code`,`v`.`address`,`vl`.`level_name`
+    FROM `arena` AS `a`
+    JOIN `sports` AS `s`
+    ON `a`.`sport_id` = `s`.`id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
+    JOIN `venue_levels` AS `vl`
+    ON `vl`.`id` = `v`.`level_id`
+    WHERE `s`.`id` = $id
+    ";
+    return $this->db->query($query);
+  }
 }

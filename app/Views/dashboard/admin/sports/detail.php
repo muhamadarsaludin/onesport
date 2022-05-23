@@ -76,31 +76,29 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th width='100px'>Gambar</th>
                 <th>Kode Arena</th>
-                <th>Name Arena</th>
-                <th>Kategori</th>
-                <th>Vendor</th>
-                <th>Harga Sewa</th>
+                <th>Name Venue</th>
                 <th>Status</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
                 <th>No</th>
-                <th>Gambar</th>
                 <th>Kode Arena</th>
-                <th>Name Arena</th>
-                <th>Kategori</th>
-                <th>Vendor</th>
-                <th>Harga Sewa</th>
+                <th>Name Venue</th>
                 <th>Status</th>
-                <th>Action</th>
               </tr>
             </tfoot>
             <tbody>
-
+            <?php $i=1; ?>
+            <?php foreach($arenas as $arena): ;?>
+              <tr>
+                <td><?= $i++; ?></td>
+                <td><?= $arena['slug']; ?></td>
+                <td><?= $arena['venue_name']; ?></td>
+                <td><?= $arena['active']==1?'Aktif':'Non Aktif'; ?></td>
+              </tr>
+            <?php endforeach; ?>
             </tbody>
           </table>
       </div>
