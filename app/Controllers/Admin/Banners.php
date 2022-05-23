@@ -21,7 +21,7 @@ class Banners extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Banner Informasi | Sportpedia',
+      'title'  => 'Banner Informasi',
       'active' => 'admin-banners',
       'banners'  => $this->bannersModel->getWhere(['venue_id' => null])->getResultArray()
     ];
@@ -32,7 +32,7 @@ class Banners extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Banner | Sportpedia',
+      'title'  => 'Detail Banner',
       'active' => 'admin-banner',
       'banner' => $this->bannersModel->getWhere(['id' => $id])->getRowArray(),
     ];
@@ -44,7 +44,7 @@ class Banners extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Buat Informasi | Sportpedia',
+      'title'  => 'Buat Informasi',
       'active' => 'admin-banner',
       'validation' => \Config\Services::validation(),
     ];
@@ -84,7 +84,7 @@ class Banners extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Banner | sportpedia',
+      'title'  => 'Edit Banner',
       'active' => 'admin-banner',
       'validation' => \Config\Services::validation(),
       'banner'  => $this->bannersModel->getWhere(['id' => $id])->getRowArray(),

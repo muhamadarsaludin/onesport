@@ -40,6 +40,7 @@
               <th>Icon</th>
               <th>Nama Olahraga</th>
               <th>Banyak Arena</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
@@ -50,7 +51,8 @@
                 <td><?= $i++; ?></td>
                 <td><img src="/img/sports/<?= $sport['sport_icon']; ?>" class="w-100" alt=""></td>
                 <td><?= $sport['sport_name']; ?></td>
-                <td>-</td>
+                <td><?= $sport['arena_amount']; ?></td>
+                <td><?= $sport['active']==1?'Aktif':'Non Aktif'; ?></td>
                 <td class="text-center">
                   <a href="/admin/sports/detail/<?= $sport['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/sports/edit/<?= $sport['id']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>

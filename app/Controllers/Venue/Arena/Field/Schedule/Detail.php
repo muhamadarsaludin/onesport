@@ -70,7 +70,7 @@ class Detail extends BaseController
   {
     $detailSchedule = $this->scheduleDetailModel->getWhere(['id' => $detailId])->getRowArray();
     $data = [
-      'title'  => 'Edit Detail Schedule | Sportpedia',
+      'title'  => 'Edit Detail Schedule',
       'active' => 'venue-arena',
       'detail' => $detailSchedule,
       'validation' => \Config\Services::validation(),

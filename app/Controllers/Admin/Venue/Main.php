@@ -33,7 +33,7 @@ class Main extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Daftar Venue | Sportpedia',
+      'title'  => 'Daftar Venue',
       'active' => 'admin-venue',
       'venues'  => $this->venueModel->get()->getResultArray(),
     ];
@@ -46,7 +46,7 @@ class Main extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Venue | Sportpedia',
+      'title'  => 'Detail Venue',
       'active' => 'admin-venue',
       'venue' => $this->venueModel->getWhere(['id' => $id])->getRowArray(),
       'levels' => $this->venueLevelsModel->get()->getResultArray(),
@@ -60,7 +60,7 @@ class Main extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Venue | Sportpedia',
+      'title'  => 'Tambah Venue',
       'active' => 'admin-venue',
       'validation' => \Config\Services::validation(),
       'levels' => $this->venueLevelsModel->get()->getResultArray()
@@ -124,7 +124,7 @@ class Main extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Venue | Sportpedia',
+      'title'  => 'Edit Venue',
       'active' => 'admin-venue',
       'validation' => \Config\Services::validation(),
       'levels' => $this->venueLevelsModel->get()->getResultArray(),

@@ -21,7 +21,7 @@ class Facilities extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Fasilitas | Sportpedia',
+      'title'  => 'Fasilitas',
       'active' => 'admin-facilities',
       'facilities'  => $this->facilitiesModel->get()->getResultArray()
     ];
@@ -32,7 +32,7 @@ class Facilities extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Fasilitas | Sportpedia',
+      'title'  => 'Detail Fasilitas',
       'active' => 'admin-facilities',
       'facility' => $this->facilitiesModel->getWhere(['id' => $id])->getRowArray(),
     ];
@@ -46,7 +46,7 @@ class Facilities extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Fasilitas | Sportpedia',
+      'title'  => 'Tambah Fasilitas',
       'active' => 'admin-facilities',
       'validation' => \Config\Services::validation(),
     ];
@@ -77,7 +77,7 @@ class Facilities extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Fasilitas | Sportpedia',
+      'title'  => 'Edit Fasilitas',
       'active' => 'admin-facilities',
       'validation' => \Config\Services::validation(),
       'facility'  => $this->facilitiesModel->getWhere(['id' => $id])->getRowArray(),

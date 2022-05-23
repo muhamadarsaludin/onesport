@@ -73,7 +73,7 @@ class Transaction extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Transaksi | Sportpedia',
+      'title'  => 'Transaksi',
       'transactions' => $this->transactionModel->getWhere(['user_id' => user_id()])->getResultArray(),
     ];
     return view('transaction/index', $data);
@@ -84,7 +84,7 @@ class Transaction extends BaseController
   {
 
     $data = [
-      'title'  => 'Detail Transaksi | Sportpedia',
+      'title'  => 'Detail Transaksi',
       'transaction' => $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray(),
       'details' => $this->transactionDetailModel->getTransactionDetailByTransactionCode($transCode)->getResultArray()
     ];

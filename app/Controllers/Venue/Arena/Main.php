@@ -51,7 +51,7 @@ class Main extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Daftar Arena | Sportpedia',
+      'title'  => 'Daftar Arena',
       'active' => 'venue-arena',
       'arenas'  => $this->arenaModel->getArenaByVenueSlug(venue()->slug)->getResultArray(),
     ];
@@ -64,7 +64,7 @@ class Main extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Arena | Sportpedia',
+      'title'  => 'Tambah Arena',
       'active' => 'venue-arena',
       'sports' => $this->sportsModel->get()->getResultArray(),
       'arenas' => $this->arenaModel->getWhere(['venue_id' => venue()->id])->getResultArray(),
@@ -131,7 +131,7 @@ class Main extends BaseController
   public function detail($slug)
   {
     $data = [
-      'title' => 'Detail Arena | Sportpedia',
+      'title' => 'Detail Arena',
       'arena' => $this->arenaModel->getArenaBySlug($slug)->getRowArray(),
     ];
     $data['fields'] = $this->fieldsModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();

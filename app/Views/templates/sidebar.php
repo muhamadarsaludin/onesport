@@ -3,7 +3,7 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
     <div class="sidebar-brand-icon">
-      <img src="/img/logos/logo-sportpedia.png" alt="" class="img-responsive" width="70%">
+      <img src="/img/logos/logo.svg" alt="" class="img-responsive" width="70%" alt="Onesport Logo">
     </div>
 
   </a>

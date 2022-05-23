@@ -70,7 +70,7 @@ class Main extends BaseController
   {
     $arena = $this->arenaModel->getArenaBySlug($slug)->getRowArray();
     $data = [
-      'title'  => 'Tambah Lapangan | Sportpedia',
+      'title'  => 'Tambah Lapangan',
       'active' => 'venue-arena',
       'arena' => $arena,
       'specs' => $this->specificationsModel->getWhere(['sport_id' => $arena['sport_id']])->getResultArray(),
@@ -140,7 +140,7 @@ class Main extends BaseController
   public function detail($slug)
   {
     $data = [
-      'title' => 'Detail Lapangan | Sportpedia',
+      'title' => 'Detail Lapangan',
       'field' => $this->fieldsModel->getWhere(['slug' => $slug])->getRowArray(),
       'days'  => $this->dayModel->get()->getResultArray(),
     ];

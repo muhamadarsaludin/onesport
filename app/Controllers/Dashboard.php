@@ -35,7 +35,7 @@ class Dashboard extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Dashboard | Sportpedia',
+      'title'  => 'Dashboard',
       'banners' => $this->bannersModel->getWhere(['venue_id' => null, 'active' => 1])->getResultArray(),
     ];
 

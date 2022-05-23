@@ -70,7 +70,7 @@ class Main extends BaseController
   {
     $field = $this->fieldsModel->getWhere(['slug' => $fieldSlug])->getRowArray();
     $data = [
-      'title'  => 'Tambah Jadwal | Sportpedia',
+      'title'  => 'Tambah Jadwal',
       'active' => 'venue-arena',
       'field' => $field,
       'schedules' => $this->scheduleModel->getScheduleByFieldId($field['id'])->getResultArray(),
@@ -124,7 +124,7 @@ class Main extends BaseController
   {
 
     $data = [
-      'title' => 'Detail Jadwal | Sportpedia',
+      'title' => 'Detail Jadwal',
       'schedule' => $this->scheduleModel->getWhere(['id' => $scheduleId])->getRowArray(),
       'details' => $this->scheduleDetailModel->getWhere(['schedule_id' => $scheduleId])->getResultArray(),
     ];

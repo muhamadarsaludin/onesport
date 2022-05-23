@@ -63,7 +63,7 @@ class Main extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Home | Sportpedia',
+      'title'  => 'Home',
       'banners' => $this->bannersModel->getWhere(['venue_id' => null, 'active' => 1])->getResultArray(),
       'sports' => $this->sportsModel->getAllSportAvailable()->getResultArray(),
       'arenas' => $this->arenaModel->getAllArena()->getResultArray(),
@@ -75,7 +75,7 @@ class Main extends BaseController
   public function venue($slug)
   {
     $data = [
-      'title' => 'Arena | Sportpedia',
+      'title' => 'Venue',
       'venue' => $this->venueModel->getVenueBySlug($slug)->getRowArray(),
     ];
     $data['arenas'] = $this->arenaModel->getArenaByVenueSlug($data['venue']['slug'])->getResultArray();
@@ -90,7 +90,7 @@ class Main extends BaseController
   public function arena($slug)
   {
     $data = [
-      'title' => 'Arena | Sportpedia',
+      'title' => 'Arena',
       'arena' => $this->arenaModel->getArenaBySlug($slug)->getRowArray(),
     ];
     $data['fields'] = $this->fieldsModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
@@ -103,7 +103,7 @@ class Main extends BaseController
   public function field($slug)
   {
     $data = [
-      'title' => 'Lapangan | Sportpedia',
+      'title' => 'Lapangan',
       'field' => $this->fieldsModel->getWhere(['slug' => $slug])->getRowArray(),
     ];
     $data['images'] = $this->fieldImagesModel->getWhere(['field_id' => $data['field']['id']])->getResultArray();
@@ -156,7 +156,7 @@ class Main extends BaseController
   public function schedule($id)
   {
     $data = [
-      'title' => 'Detail Jadwal | Sportpedia',
+      'title' => 'Detail Jadwal',
       'schedule' => $this->scheduleModel->getWhere(['id' => $id])->getRowArray(),
     ];
     $data['details'] = $this->scheduleDetailModel->getWhere(['schedule_id' => $data['schedule']['id']])->getResultArray();

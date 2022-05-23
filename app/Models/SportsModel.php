@@ -11,6 +11,15 @@ class SportsModel extends Model
   protected $useTimestamps = true;
 
 
+  public function getAllSport()
+  {
+    $query = "SELECT `s`.*, COUNT(`a`.`id`) AS 'arena_amount'
+    FROM `sports` AS `s`
+    JOIN `arena` AS `a`
+    ON `s`.`id` = `a`.`sport_id`
+    ";
+    return $this->db->query($query);
+  }
   public function getAllSportAvailable()
   {
     $query = "SELECT `s`.*

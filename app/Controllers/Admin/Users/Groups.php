@@ -21,7 +21,7 @@ extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Group User | Sportpedia',
+      'title'  => 'Group User',
       'active' => 'admin-users',
       'groups'  => $this->groupsModel->get()->getResultArray()
     ];
@@ -34,7 +34,7 @@ extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Group | Sportpedia',
+      'title'  => 'Detail Group',
       'active' => 'admin-users',
       'group' => $this->groupsModel->getWhere(['id' => $id])->getRowArray(),
     ];
@@ -46,7 +46,7 @@ extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah groups | Sportpedia',
+      'title'  => 'Tambah groups',
       'active' => 'admin-users',
       'validation' => \Config\Services::validation(),
     ];
@@ -72,7 +72,7 @@ extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Group | Sportpedia',
+      'title'  => 'Edit Group',
       'active' => 'admin-users',
       'validation' => \Config\Services::validation(),
       'group'  => $this->groupsModel->getWhere(['id' => $id])->getRowArray(),

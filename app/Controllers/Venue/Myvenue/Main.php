@@ -55,7 +55,7 @@ class Main extends BaseController
   {
     $data = [
       'banners' => $this->bannersModel->getWhere(['venue_id' => null, 'active' => 1])->getResultArray(),
-      'title' => 'Arena | Sportpedia',
+      'title' => 'Arena',
       'venue' => $this->venueModel->getVenueBySlug(venue()->slug)->getRowArray(),
     ];
     return view('dashboard/venue/myvenue/index', $data);

@@ -23,7 +23,7 @@ class Levels extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Level Venue | Sportpedia',
+      'title'  => 'Level Venue',
       'active' => 'admin-venue',
       'levels'  => $this->venueLevelsModel->get()->getResultArray(),
     ];
@@ -36,7 +36,7 @@ class Levels extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Level | Sportpedia',
+      'title'  => 'Detail Level',
       'active' => 'admin-venue',
       'level' => $this->venueLevelsModel->getWhere(['id' => $id])->getRowArray(),
     ];
@@ -48,7 +48,7 @@ class Levels extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Level | Sportpedia',
+      'title'  => 'Tambah Level',
       'active' => 'admin-venue',
       'validation' => \Config\Services::validation(),
     ];
@@ -74,7 +74,7 @@ class Levels extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Level | sportpedia',
+      'title'  => 'Edit Level',
       'active' => 'admin-venue',
       'validation' => \Config\Services::validation(),
       'level'  => $this->venueLevelsModel->getWhere(['id' => $id])->getRowArray(),

@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <div class="row justify-content-between text-secondary">
         <div class="col-6 col-lg-2 mb-4">
-          <img src="<?= base_url("/img/logos/logo-sportpedia.png") ?>" class="w-100" alt="Sportpedia Logo">
+          <img src="<?= base_url("/img/logos/logo.svg") ?>" class="w-100" alt="Onesport Logo">
         </div>
 
         <div class="col-12 col-lg-2">
           <div class="footer-menu ">
-            <div class="footer-menu-title">Sportpedia</div>
+            <div class="footer-menu-title">Onesport</div>
             <a href="" class="menu">About Us</a>
             <a href="" class="menu">Service</a>
           </div>
@@ -23,8 +23,8 @@
         <div class="col-12 col-lg-2">
           <div class="footer-menu">
             <div class="footer-menu-title">Businesses</div>
-            <a href="" class="menu">Become A Vendor</a>
-            <a href="" class="menu">Upgrade My Vendor</a>
+            <a href="" class="menu">Become A Venue</a>
+            <a href="" class="menu">Upgrade My Venue</a>
           </div>
         </div>
         <div class="col-lg-3">

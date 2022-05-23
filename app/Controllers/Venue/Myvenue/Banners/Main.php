@@ -54,7 +54,7 @@ class Main extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'My Venue | Sportpedia',
+      'title'  => 'My Venue',
       'active' => 'venue-myvenue',
       'banners'  => $this->bannersModel->getWhere(['venue_id' => venue()->id, 'active' => 1])->getResultArray(),
     ];
@@ -78,7 +78,7 @@ class Main extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Banner Venue | Sportpedia',
+      'title'  => 'Tambah Banner Venue',
       'active' => 'venue-myvenue',
       'validation' => \Config\Services::validation(),
     ];
@@ -118,7 +118,7 @@ class Main extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Banner | sportpedia',
+      'title'  => 'Edit Banner',
       'active' => 'venue-myvenue',
       'validation' => \Config\Services::validation(),
       'banner'  => $this->bannersModel->getWhere(['id' => $id])->getRowArray(),

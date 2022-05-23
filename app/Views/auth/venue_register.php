@@ -10,7 +10,7 @@
           <div class="px-5">
             <div class="text-center">
               <a href="/">
-                <img src="/img/logos/logo-sportpedia.png" alt="RH Wedding Logo" class="mb-4" width="130">
+                <img src="/img/logos/logo.svg" alt="Onesport Logo" class="mb-4" width="130">
               </a>
             </div>
             <?php if (session()->getFlashdata('message')) : ?>

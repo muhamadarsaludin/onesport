@@ -23,9 +23,9 @@ class Sports extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Olahraga | Sportpedia',
+      'title'  => 'Olahraga',
       'active' => 'admin-sports',
-      'sports'  => $this->sportsModel->get()->getResultArray(),
+      'sports'  => $this->sportsModel->getAllSport()->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/admin/sports/index', $data);
@@ -34,7 +34,7 @@ class Sports extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Olahraga | Sportpedia',
+      'title'  => 'Detail Olahraga',
       'active' => 'admin-sports',
       'sport' => $this->sportsModel->getWhere(['id' => $id])->getRowArray(),
       // 'arenas' => $this->arenaModel->getArenaBySportId($id),
@@ -46,7 +46,7 @@ class Sports extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Olahraga | Sportpedia',
+      'title'  => 'Tambah Olahraga',
       'active' => 'admin-sports',
       'validation' => \Config\Services::validation(),
     ];
@@ -85,7 +85,7 @@ class Sports extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Olahraga | sportpedia',
+      'title'  => 'Edit Olahraga',
       'active' => 'admin-sports',
       'validation' => \Config\Services::validation(),
       'sport'  => $this->sportsModel->getWhere(['id' => $id])->getRowArray(),

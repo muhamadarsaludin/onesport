@@ -23,7 +23,7 @@ class Main extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Daftar User | Sportpedia',
+      'title'  => 'Daftar User',
       'active' => 'admin-users',
       'users'  => $this->usersModel->get()->getResultArray()
     ];
@@ -36,7 +36,7 @@ class Main extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail User | Sportpedia',
+      'title'  => 'Detail User',
       'active' => 'admin-users',
       'user' => $this->usersModel->getWhere(['id' => $id])->getRowArray(),
     ];
@@ -48,7 +48,7 @@ class Main extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah User | Sportpedia',
+      'title'  => 'Tambah User',
       'active' => 'admin-users',
       'validation' => \Config\Services::validation(),
       'roles' => $this->rolesModel->get()->getResultArray()
@@ -86,7 +86,7 @@ class Main extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit User | Sportpedia',
+      'title'  => 'Edit User',
       'active' => 'admin-users',
       'validation' => \Config\Services::validation(),
       'user'  => $this->usersModel->getWhere(['id' => $id])->getRowArray(),

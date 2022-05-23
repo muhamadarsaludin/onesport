@@ -26,7 +26,7 @@ class Specifications extends BaseController
   public function index()
   {
     $data = [
-      'title'  => 'Spesifikasi | Sportpedia',
+      'title'  => 'Spesifikasi ',
       'active' => 'admin-specifications',
       'specifications'  => $this->specificationsModel->get()->getResultArray(),
     ];
@@ -37,7 +37,7 @@ class Specifications extends BaseController
   public function detail($id)
   {
     $data = [
-      'title'  => 'Detail Spesifikasi | Sportpedia',
+      'title'  => 'Detail Spesifikasi',
       'active' => 'admin-specifications',
       'spec' => $this->specificationsModel->getWhere(['id' => $id])->getRowArray(),
       'sports' => $this->sportsModel->get()->getResultArray()
@@ -49,7 +49,7 @@ class Specifications extends BaseController
   public function add()
   {
     $data = [
-      'title'  => 'Tambah Spesifikasi | Sportpedia',
+      'title'  => 'Tambah Spesifikasi',
       'active' => 'admin-specifications',
       'sports' => $this->sportsModel->get()->getResultArray(),
       'validation' => \Config\Services::validation(),
@@ -78,7 +78,7 @@ class Specifications extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'  => 'Edit Spesifikasi | Sportpedia',
+      'title'  => 'Edit Spesifikasi',
       'active' => 'admin-specifications',
       'validation' => \Config\Services::validation(),
       'spec' => $this->specificationsModel->getWhere(['id' => $id])->getRowArray(),
