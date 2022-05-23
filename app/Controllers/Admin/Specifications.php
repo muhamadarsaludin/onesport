@@ -28,7 +28,7 @@ class Specifications extends BaseController
     $data = [
       'title'  => 'Spesifikasi ',
       'active' => 'admin-specifications',
-      'specifications'  => $this->specificationsModel->get()->getResultArray(),
+      'specifications'  => $this->specificationsModel->getAllSpec()->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/admin/specifications/index', $data);

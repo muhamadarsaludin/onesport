@@ -49,7 +49,7 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $spec['spec_name']; ?></td>
-                <td><?= $spec['sport_id']; ?></td>
+                <td><?= $spec['sport_name']; ?></td>
                 <td><?= $spec['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td class="text-center">
                   <a href="/admin/specifications/detail/<?= $spec['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>

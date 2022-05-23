@@ -13,7 +13,7 @@
       <form action="/admin/specifications/save" method="post" class="user" enctype="multipart/form-data">
         <?= csrf_field(); ?>
         <div class="form-group row">
-          <label for="spec_name" class="col-sm-2 col-form-label">Spesifikasi</label>
+          <label for="spec_name" class="col-sm-2 col-form-label">Spesifikasi<sup class="text-danger font-weight-bold">*</sup></label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-user <?= ($validation->hasError('spec_name') ? 'is-invalid' : ''); ?>" id="spec_name" name="spec_name" placeholder="Nama Spesifikasi">
             <div class="invalid-feedback">
