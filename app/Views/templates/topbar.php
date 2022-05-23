@@ -6,13 +6,13 @@
     </button> -->
 
     <a class="navbar-brand" href="#">
-      <img src="<?= base_url("/img/logos/logo-sportpedia.png") ?>" class="" width="120" alt="Sportpedia Logo">
+      <img src="<?= base_url("/img/logos/logo.svg") ?>" class="" width="120" alt="Onesport Logo">
     </a>
 
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
       <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Mau olahraga apa hari ini..." aria-label="Search" aria-describedby="basic-addon2">
+        <input type="text" class="form-control bg-light border-0 small" placeholder="Mau main futsal dimana...?" aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
           <button class="btn btn-primary" type="button">
             <i class="fas fa-search fa-sm"></i>
@@ -133,7 +133,7 @@
           <?php else : ?>
             <a class="nav-link" href="/main/venueregister" id="">
               <img class="img-profile rounded-circle mr-2" src="/img/venue/logos/default.png">
-              <span class="d-none d-lg-inline text-gray-600 small">Daftar Venue</span>
+              <span class="d-none d-lg-inline text-gray-600 small">Become a Venue</span>
             </a>
           <?php endif; ?>
           <!-- Dropdown - User Information -->
@@ -154,7 +154,7 @@
 
 
 
-
+    <?php if(logged_in()): ?>
       <!-- Nav Item - User Information -->
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -163,7 +163,6 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <?php if (logged_in()) : ?>
             <!-- <a class="dropdown-item" href="#">
               <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
@@ -178,20 +177,20 @@
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
               Logout
             </a>
-          <?php else : ?>
-            <a class="dropdown-item" href="<?= base_url('login') ?>">
-              <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-              Login
-            </a>
-            <a class="dropdown-item" href="<?= base_url('register'); ?>">
-              <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"></i>
-              Registrasi
-            </a>
-          <?php endif; ?>
         </div>
       </li>
-
-
+    <?php else: ?>
+      <li class="nav-item no-arrow">
+          <div class="nav-link">
+              <a class="btn btn-outline-primary" href="<?= base_url('login'); ?>">Login</a>
+          </div>
+      </li>
+      <li class="nav-item no-arrow">
+          <div class="nav-link">
+              <a class="btn btn-primary" href="<?= base_url('register'); ?>">Register</a>
+          </div>
+      </li>
+    <?php endif; ?>
     </ul>
 
   </nav>
