@@ -9,7 +9,9 @@ use App\Models\GroupsUsersModel;
 
 class Main extends BaseController
 {
-  protected $roleModel;
+  protected $usersModel;
+  protected $groupsModel;
+  protected $groupsUsersModel;
 
 
   public function __construct()
@@ -25,9 +27,8 @@ class Main extends BaseController
     $data = [
       'title'  => 'Daftar User',
       'active' => 'admin-users',
-      'users'  => $this->usersModel->get()->getResultArray()
+      'users'  => $this->usersModel->getAllUser()->getResultArray()
     ];
-    // dd($data);
     return view('dashboard/admin/users/main/index', $data);
   }
 
@@ -38,49 +39,11 @@ class Main extends BaseController
     $data = [
       'title'  => 'Detail User',
       'active' => 'admin-users',
-      'user' => $this->usersModel->getWhere(['id' => $id])->getRowArray(),
+      'user' => $this->usersModel->getUserById($id)->getRowArray(),
     ];
     // dd($data);
     return view('dashboard/admin/users/main/detail', $data);
   }
-
-  // Add Data
-  public function add()
-  {
-    $data = [
-      'title'  => 'Tambah User',
-      'active' => 'admin-users',
-      'validation' => \Config\Services::validation(),
-      'roles' => $this->rolesModel->get()->getResultArray()
-    ];
-    return view('dashboard/admin/users/main/add', $data);
-  }
-  public function save()
-  {
-    if (!$this->validate([
-      'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
-      'email'    => 'required|valid_email|is_unique[users.email]',
-      'password'     => 'required|strong_password',
-      'pass_confirm' => 'required|matches[password]',
-    ])) {
-      return redirect()->to('/admin/users/main/add')->withInput()->with('errors', $this->validator->getErrors());
-    }
-    $this->usersModel->save([
-      'username' => $this->request->getVar('username'),
-      'email' => $this->request->getVar('email'),
-      'password_hash' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-      'active' => 1
-    ]);
-    $user = $this->usersModel->getWhere(['email' => $this->request->getVar('email')])->getRowArray();
-    $this->groupsUsersModel->save([
-      'group_id' => $this->request->getVar('role-id'),
-      'user_id' => $user['id'],
-    ]);
-
-    session()->setFlashdata('message', 'User baru berhasil ditambahkan!');
-    return redirect()->to('/admin/users/main');
-  }
-
 
   // Edit data
   public function edit($id)
@@ -89,7 +52,7 @@ class Main extends BaseController
       'title'  => 'Edit User',
       'active' => 'admin-users',
       'validation' => \Config\Services::validation(),
-      'user'  => $this->usersModel->getWhere(['id' => $id])->getRowArray(),
+      'user'  => $this->usersModel->getUserById($id)->getRowArray(),
       'groups' => $this->groupsModel->get()->getResultArray()
     ];
     // dd($data);
@@ -98,9 +61,63 @@ class Main extends BaseController
 
   public function update($id)
   {
+    $user = $this->usersModel->getWhere(['id' => $id])->getRowArray();
+    $username = $this->request->getVar('username');
+    $email = $this->request->getVar('email');
 
-    // session()->setFlashdata('message', 'Data user berhasil diubah!');
-    // return redirect()->to('/admin/users/main');
+    if ($user['username'] == $username) {
+      $rulesUsername = 'required';
+    } else {
+      $rulesUsername = 'required|is_unique[users.username]';
+    }
+    if ($user['email'] == $email) {
+      $rulesEmail = 'required|valid_email';
+    } else {
+      $rulesEmail = 'required|valid_email|is_unique[users.email]';
+    }
+
+    if (!$this->validate([
+      'username' => $rulesUsername,
+      'email' => $rulesEmail,
+      'user_image' => [
+        'rules'  => 'max_size[user_image,5024]|ext_in[user_image,png,jpg,jpeg,svg]'
+      ],
+      'active' => 'required',
+      'group_id' => 'required',
+
+    ])) {
+      return redirect()->to('/admin/users/main/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());
+    }
+
+    $image = $this->request->getFile('user_image');
+    $oldImage = $user['user_image'];
+    if ($image->getError() == 4) {
+      $imageName = $oldImage;
+    } else {
+      // pindahkan file
+      $imageName = $image->getRandomName();
+      $image->move('img/users', $imageName);
+      // hapus file lama
+      if($oldImage != 'default.png'){
+        unlink('img/users/' . $oldImage);
+      }
+    }
+    $this->usersModel->save([
+      'id'    => $id,
+      'username' => $username,
+      'email' => $email,
+      'user_image'=> $imageName,
+      'active' => $this->request->getVar('active'),
+      'description' => $this->request->getVar('description'),
+    ]);
+    $groupUser = $this->groupsUsersModel->getWhere(['user_id' => $id])->getRowArray();
+    $this->groupsUsersModel->save([
+      'id' => $groupUser['id'],
+      'group_id' => $this->request->getVar('group_id')
+    ]);
+    
+    session()->setFlashdata('message', 'Data user berhasil diubah!');
+    return redirect()->to('/admin/users/main');
   }
   // End Edit
 

@@ -34,7 +34,7 @@
         <div class="form-group row">
           <label for="group_id" class="col-sm-2 col-form-label">Group User</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-user" id="group_id" name="group_id" placeholder="Role User" value="<?= (old('role')) ? old('role') : '-'; ?>" readonly>
+            <input type="text" class="form-control form-control-user" id="group_id" name="group_id" placeholder="Role User" value="<?= $user['role_name'] ?>" readonly>
           </div>
         </div>
         <div class="form-group row">
