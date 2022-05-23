@@ -55,7 +55,7 @@
                 <td><a target="blank" class="btn btn-primary <?= ($banner['link'] ? '' : 'disabled'); ?>" href="<?= $banner['link']; ?>">Kunjugi Halaman</a></td>
                 <td><?= $banner['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td class="text-center">
-                  <a href="/admin/banners/detail/<?= $banner['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/admin/banners/detail/<?= $banner['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/banners/edit/<?= $banner['id']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
                   <form action="/admin/banners/<?= $banner['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>

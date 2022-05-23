@@ -52,7 +52,7 @@
                 <td>-</td>
                 <td><?= $level['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?> </td>
                 <td class="text-center">
-                  <a href="/admin/venue/levels/detail/<?= $level['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/admin/venue/levels/detail/<?= $level['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/venue/levels/edit/<?= $level['id']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
                   <form action="/admin/venue/levels/<?= $level['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>

@@ -61,7 +61,7 @@
                 <td><?= $venue['rating'] == null ? 'Belum Ada Penilaian' : $venue['rating']; ?></td>
                 <td><?= $venue['city']; ?></td>
                 <td class="text-center">
-                  <a href="/admin/venue/main/detail/<?= $venue['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/admin/venue/main/detail/<?= $venue['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/venue/main/edit/<?= $venue['id']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
                   <form action="/admin/venue/main/<?= $venue['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>
