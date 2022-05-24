@@ -25,7 +25,7 @@ class Levels extends BaseController
     $data = [
       'title'  => 'Level Venue',
       'active' => 'admin-venue',
-      'levels'  => $this->venueLevelsModel->get()->getResultArray(),
+      'levels'  => $this->venueLevelsModel->getAllVenueLevel()->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/admin/venue/levels/index', $data);
@@ -57,12 +57,14 @@ class Levels extends BaseController
   public function save()
   {
     if (!$this->validate([
-      'level_name' => 'required|is_unique[venue_levels.level_name]'
+      'level_name' => 'required|is_unique[venue_levels.level_name]',
+      'active' => 'required'
     ])) {
       return redirect()->to('/admin/venue/levels/add')->withInput()->with('errors', $this->validator->getErrors());
     }
     $this->venueLevelsModel->save([
       'level_name' => $this->request->getVar('level_name'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Level baru berhasil ditambahkan!');
@@ -91,12 +93,14 @@ class Levels extends BaseController
     }
     if (!$this->validate([
       'level_name' => 'required' . $levelRules,
+      'active' => 'required'
     ])) {
       return redirect()->to('/admin/venue/levels/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());
     }
     $this->venueLevelsModel->save([
       'id'    => $id,
       'level_name' => $this->request->getVar('level_name'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Level berhasil diubah!');
@@ -108,7 +112,7 @@ class Levels extends BaseController
   {
     // cari role berdasarkan id
     $this->venueLevelsModel->delete($id);
-    session()->setFlashdata('message', 'level berhasil dihapus!');
+    session()->setFlashdata('message', 'Level berhasil dihapus!');
     return redirect()->to('/admin/venue/levels');
   }
 }

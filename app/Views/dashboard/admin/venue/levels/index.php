@@ -29,7 +29,7 @@
             <tr>
               <th>No</th>
               <th>Level</th>
-              <th>Banyak Vendor</th>
+              <th>Banyak Venue</th>
               <th>Status</th>
               <th>Aksi</th>
             </tr>
@@ -38,7 +38,7 @@
             <tr>
               <th>No</th>
               <th>Level</th>
-              <th>Banyak Vendor</th>
+              <th>Banyak Venue</th>
               <th>Status</th>
               <th>Aksi</th>
             </tr>
@@ -49,7 +49,7 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $level['level_name']; ?></td>
-                <td>-</td>
+                <td><?= $level['venue_amount']; ?></td>
                 <td><?= $level['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?> </td>
                 <td class="text-center">
                   <a href="/admin/venue/levels/detail/<?= $level['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
