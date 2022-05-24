@@ -32,6 +32,16 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="active" class="col-sm-2 col-form-label">Status<sup class="text-danger font-weight-bold">*</sup></label>
+          <div class="col-sm-10">
+            <select class="custom-select" id="active" name="active">
+              <option selected>Pilih salah satu...</option>
+              <option <?= $facility['active'] == 1 ? 'selected' : ''; ?> value="1">Aktif</option>
+              <option <?= $facility['active'] == 0 ? 'selected' : ''; ?> value="0">Non Aktif</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
           <div class="col-sm-10">
             <textarea class="form-control" id="description" name="description" placeholder="Deskripsi fasilitas" rows="4"><?= old('description') ? old('description') : $facility['description']; ?></textarea>

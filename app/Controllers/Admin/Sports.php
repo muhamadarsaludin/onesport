@@ -56,6 +56,7 @@ class Sports extends BaseController
   {
     if (!$this->validate([
       'sport_name' => 'required|is_unique[sports.sport_name]',
+      'active' => 'required',
       'sport_icon' => [
         'rules'  => 'uploaded[sport_icon]|max_size[sport_icon,5024]|ext_in[sport_icon,png,jpg,jpeg,svg]'
       ],
@@ -73,6 +74,7 @@ class Sports extends BaseController
       'sport_name' => $name,
       'sport_icon' => $iconName,
       'slug' => $slug,
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Olahraga baru berhasil ditambahkan!');
@@ -107,6 +109,7 @@ class Sports extends BaseController
 
     if (!$this->validate([
       'sport_name' => $rulesSportName,
+      'active' => 'required',
       'sport_icon' => [
         'rules'  => 'max_size[sport_icon,5024]|ext_in[sport_icon,png,jpg,jpeg,svg]'
       ],
@@ -130,6 +133,7 @@ class Sports extends BaseController
       'sport_icon' => $iconName,
       'sport_name' => $sportName,
       'slug' => $slug,
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Data olahraga berhasil diubah!');

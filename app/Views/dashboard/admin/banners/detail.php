@@ -43,7 +43,16 @@
             <input type="text" class="form-control form-control-user" id="link" name="link" placeholder="" value="<?= (old('link')) ? old('link') : $banner['link']; ?>" readonly>
           </div>
         </div>
-
+        <div class="form-group row">
+          <label for="active" class="col-sm-2 col-form-label">Status<sup class="text-danger font-weight-bold">*</sup></label>
+          <div class="col-sm-10">
+            <select class="custom-select" id="active" name="active" disabled>
+              <option selected>Pilih salah satu...</option>
+              <option <?= $banner['active'] == 1 ? 'selected' : ''; ?> value="1">Aktif</option>
+              <option <?= $banner['active'] == 0 ? 'selected' : ''; ?> value="0">Non Aktif</option>
+            </select>
+          </div>
+        </div>
         <div class="text-right" width="100%">
           <a href="/admin/banners" class="btn btn-secondary btn-sm">Kembali</a>
         </div>

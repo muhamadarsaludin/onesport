@@ -58,13 +58,15 @@ class Facilities extends BaseController
   {
     if (!$this->validate([
       'facility_name' => 'required|is_unique[facilities.facility_name]',
-      'icon' => 'required'
+      'icon' => 'required',
+      'active' => 'required'
     ])) {
       return redirect()->to('/admin/facilities/add')->withInput()->with('errors', $this->validator->getErrors());
     }
     $this->facilitiesModel->save([
       'facility_name' => $this->request->getVar('facility_name'),
       'icon' => $this->request->getVar('icon'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Fasilitas baru berhasil ditambahkan!');
@@ -93,6 +95,7 @@ class Facilities extends BaseController
     if (!$this->validate([
       'facility_name' => 'required' . $rules,
       'icon' => 'required',
+      'active' => 'required',
     ])) {
       return redirect()->to('/admin/facilities/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());
     }
@@ -100,6 +103,7 @@ class Facilities extends BaseController
       'id'    => $id,
       'facility_name' => $this->request->getVar('facility_name'),
       'icon' => $this->request->getVar('icon'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Data fasilitas berhasil diubah!');

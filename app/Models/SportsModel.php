@@ -17,6 +17,7 @@ class SportsModel extends Model
     FROM `sports` AS `s`
     LEFT JOIN `arena` AS `a`
     ON `s`.`id` = `a`.`sport_id`
+    GROUP BY `s`.`id`
     ";
     return $this->db->query($query);
   }

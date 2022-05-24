@@ -58,6 +58,7 @@ class Banners extends BaseController
     if (!$this->validate([
       'image' => [
         'rules'  => 'uploaded[image]|max_size[image,5024]|ext_in[image,png,jpg,jpeg,svg]',
+        'active' => 'required',
         'errors' => [
           'ext_in' => "Extension must Image",
         ]
@@ -74,6 +75,7 @@ class Banners extends BaseController
       'user_id' => user()->id,
       'title' => $this->request->getVar('title'),
       'link' => $this->request->getVar('link'),
+      'active' => $this->request->getVar('active'),
     ]);
     session()->setFlashdata('message', 'Banner baru berhasil ditambahkan!');
     return redirect()->to('/admin/banners');
@@ -98,6 +100,7 @@ class Banners extends BaseController
     if (!$this->validate([
       'image' => [
         'rules'  => 'max_size[image,5024]|ext_in[image,png,jpg,jpeg,svg]',
+        'active' => 'required',
         'errors' => [
           'ext_in' => "Extension must Image",
         ]
@@ -124,6 +127,7 @@ class Banners extends BaseController
       'user_id' => user()->id,
       'link' => $this->request->getVar('link'),
       'title' => $this->request->getVar('title'),
+      'active' => $this->request->getVar('active'),
     ]);
     session()->setFlashdata('message', 'Banner berhasil diubah!');
     return redirect()->to('/admin/banners');

@@ -61,12 +61,14 @@ class Specifications extends BaseController
     if (!$this->validate([
       'spec_name' => 'required',
       'sport_id' => 'required',
+      'active' => 'required',
     ])) {
       return redirect()->to('/admin/specifications/add')->withInput()->with('errors', $this->validator->getErrors());
     }
     $this->specificationsModel->save([
       'spec_name' => $this->request->getVar('spec_name'),
       'sport_id' => $this->request->getVar('sport_id'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Spesifikasi baru berhasil ditambahkan!');
@@ -92,6 +94,7 @@ class Specifications extends BaseController
     if (!$this->validate([
       'spec_name' => 'required',
       'sport_id' => 'required',
+      'active' => 'required',
     ])) {
       return redirect()->to('/admin/specifications/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());
     }
@@ -100,6 +103,7 @@ class Specifications extends BaseController
       'id'    => $id,
       'spec_name' => $this->request->getVar('spec_name'),
       'sport_id' => $this->request->getVar('sport_id'),
+      'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
     session()->setFlashdata('message', 'Spesifikasi berhasil diubah!');
