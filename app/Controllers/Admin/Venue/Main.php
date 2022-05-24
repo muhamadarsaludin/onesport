@@ -35,7 +35,7 @@ class Main extends BaseController
     $data = [
       'title'  => 'Daftar Venue',
       'active' => 'admin-venue',
-      'venues'  => $this->venueModel->get()->getResultArray(),
+      'venues'  => $this->venueModel->getAllVenue()->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/admin/venue/main/index', $data);
@@ -72,6 +72,7 @@ class Main extends BaseController
     if (!$this->validate([
       'venue_name' => 'required|is_unique[venue.venue_name]',
       'email' => 'required|valid_email',
+      'contact' => 'required',
       'level_id' => 'required',
       'city' => 'required',
       'province' => 'required',
@@ -107,8 +108,8 @@ class Main extends BaseController
       'description' => $this->request->getVar('description'),
     ]);
 
-    // Change role user to owner
-    $venueGroup = $this->groupsModel->getWhere(['name' => 'owner'])->getRowArray();
+    // Change role user to venue
+    $venueGroup = $this->groupsModel->getWhere(['name' => 'venue'])->getRowArray();
     $myGroup = $this->groupsUsersModel->getWhere(['user_id' => $user['id']])->getRowArray();
     $this->groupsUsersModel->save([
       'id' => $myGroup['id'],
