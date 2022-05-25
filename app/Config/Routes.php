@@ -49,6 +49,8 @@ $routes->delete('admin/users/groups/(:num)', 'Admin\Users\Groups::delete/$1');
 // ADMIN/VENUE/LEVELS
 $routes->delete('admin/venue/main/(:num)', 'Admin\Venue\Main::delete/$1');
 $routes->delete('admin/venue/levels/(:num)', 'Admin\Venue\Levels::delete/$1');
+// ADMIN/ARENA
+$routes->delete('admin/arena/(:num)', 'Admin\Arena::delete/$1');
 
 
 // VENUE

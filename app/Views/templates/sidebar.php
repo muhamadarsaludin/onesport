@@ -78,7 +78,14 @@
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
+
   <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('admin/arena'); ?>">
+    <i class="fa-solid fa-landmark-flag"></i>
+      <span>Arena Olahraga</span></a>
+  </li>
+
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArena" aria-expanded="true" aria-controls="collapseArena">
       <i class="fas fa-fw fa-futbol"></i>
       <span>Data Arena</span>
@@ -89,7 +96,16 @@
         <a class="collapse-item" href="/admin/arena/main">Daftar Arena</a>
       </div>
     </div>
+  </li> -->
+
+  <!-- Nav Item - Utilities Collapse Menu -->
+
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('admin/field'); ?>">
+      <i class="fas fa-fw fa-futbol"></i>
+      <span>Lapangan</span></a>
   </li>
+  
   <!-- Nav Item - Pesanana Collapse Menu -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePesanan" aria-expanded="true" aria-controls="collapsePesanan">
