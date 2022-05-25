@@ -10,57 +10,52 @@
     </div>
   <?php endif; ?>
 
-  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Arena Olahraga</h6>
-
-      <a href="/admin/arena/add" class="btn btn-primary btn-icon-split">
+      <h6 class="m-0 font-weight-bold text-primary">Daftar Lapangan </h6>
+      <!-- <a href="/admin/field/Main/add" class="btn btn-primary btn-icon-split">
         <span class="icon text-white-50">
           <i class="fas fa-plus-square"></i>
         </span>
-        <span class="text">Tambah Arena</span>
-      </a>
+        <span class="text">Tambah Lapangan</span>
+      </a> -->
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="dataTable" cellspacing="0">
           <thead>
             <tr>
               <th>No</th>
-              <th width="100">Image</th>
-              <th>Kode Arena</th>
-              <th>Olahraga</th>
-              <th>venue</th>
+              <th width="150">Image</th>
+              <th>Nama Lapangan</th>
+              <th>Kode Lapangan</th>
               <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-            <th>No</th>
-              <th width="100">Image</th>
-              <th>Kode Arena</th>
-              <th>Olahraga</th>
-              <th>venue</th>
+              <th>No</th>
+              <th>Image</th>
+              <th>Nama Lapangan</th>
+              <th>Kode Lapangan</th>
               <th>Status</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
           <tbody>
-            <?php $i = 1; ?>
-            <?php foreach ($arenas as $arena) : ?>
+            <?php $i = 1 ?>
+            <?php foreach ($fields as $field) : ?>
               <tr>
                 <td><?= $i++; ?></td>
-                <td><img src="/img/venue/arena/main-images/<?= $arena['arena_image']; ?>" class="w-100" alt="Arena Image"></td>
-                <td><?= $arena['slug']; ?></td>
-                <td><?= $arena['sport_name']; ?></td>
-                <td><?= $arena['venue_name']; ?></td>
-                <td><?= $arena['active']==1?'Aktif':'Non Aktif'; ?></td>
+                <td><img src="/img/venue/arena/fields/main-images/<?= $field['field_image']; ?>" alt="" class="w-100"></td>
+                <td><?= $field['field_name']; ?></td>
+                <td><?= $field['slug']; ?></td>
+                <td><?= $field['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td class="text-center">
-                  <a href="/admin/arena/detail/<?= $arena['slug']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
-                  <a href="/admin/arena/edit/<?= $arena['slug']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
-                  <form action="/admin/arena/<?= $arena['id']; ?>" method="POST" class="d-inline form-delete">
+                  <a href="/admin/field/detail/<?= $field['slug']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/admin/fieldedit/<?= $field['slug']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
+                  <form action="/admin/field/<?= $field['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger btn-sm btn-delete"><span class="d-lg-none fa fa-trash"></span><span class="d-none d-lg-inline">Hapus</span></span></button>
@@ -69,6 +64,7 @@
               </tr>
             <?php endforeach; ?>
           </tbody>
+
         </table>
       </div>
     </div>

@@ -142,6 +142,8 @@ class Arena extends BaseController
       'arena'  => $this->arenaModel->getArenaBySlug($slug)->getRowArray(),
       'validation' => \Config\Services::validation(),
     ];
+    $data['fields'] = $this->fieldsModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
+    $data['facilities'] = $this->facilitiesModel->getArenaFacilitiesByArenaId($data['arena']['id'])->getResultArray();
     $data['images'] = $this->arenaImagesModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
     // dd($data);
     return view('dashboard/admin/arena/detail', $data);
