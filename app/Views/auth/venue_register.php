@@ -73,8 +73,8 @@
                 Register
               </button>
               <hr>
-              <p class="small text-center"> Already have an venue?<a class="text-wild-watermelon" href="<?= route_to('upgrade') ?>">
-                  upgrade!</a></p>
+              <p class="small text-center"><a class="text-wild-watermelon" href="<?= route_to('/') ?>">
+                  Back to home!</a></p>
           </div>
         </div>
       </div>

@@ -112,7 +112,7 @@
  
   
   <!-- Nav Item - Pesanana Collapse Menu -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePesanan" aria-expanded="true" aria-controls="collapsePesanan">
       <i class="fas fa-fw fa-shopping-cart"></i>
       <span>Pesanan</span>
@@ -124,9 +124,9 @@
         <a class="collapse-item" href="utilities-color.html">Pembatalan</a>
       </div>
     </div>
-  </li>
+  </li> -->
   <!-- Nav Item - Keuangan Collapse Menu -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKeuangan" aria-expanded="true" aria-controls="collapseKeuangan">
       <i class="fas fa-fw fa-dollar-sign"></i>
       <span>Keuangan</span>
@@ -138,14 +138,14 @@
         <a class="collapse-item" href="utilities-color.html">Rekening Bank</a>
       </div>
     </div>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-percentage"></i>
       <span>Promosi</span></a>
-  </li>
+  </li> -->
 
   <!-- Divider -->
   <hr class="sidebar-divider">

@@ -53,7 +53,7 @@
                 Sign In
               </button>
               <hr>
-              <p class="mb-4 small text-center">You can use the account and password
+              <!-- <p class="mb-4 small text-center">You can use the account and password
                 below to sign in</p>
               <div class="row">
                 <div class="col-6">
@@ -66,7 +66,7 @@
                     <i class="fab fa-facebook-f fa-fw"></i> Facebook
                   </a>
                 </div>
-              </div>
+              </div> -->
             </form>
             <?php if ($config->activeResetter) : ?>
               <div class="text-center mb-2 mt-4">

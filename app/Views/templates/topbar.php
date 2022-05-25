@@ -5,7 +5,7 @@
       <i class="fa fa-bars"></i>
     </button> -->
 
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img src="<?= base_url("/img/logos/logo.svg") ?>" class="" width="120" alt="Onesport Logo">
     </a>
 

@@ -44,9 +44,9 @@
                 Register
               </button>
               <hr>
-              <p class="mb-4 small text-center">You can use the account and password
-                below for registration</p>
-              <div class="row">
+              <!-- <p class="mb-4 small text-center">You can use the account and password
+                below for registration</p> -->
+              <!-- <div class="row">
                 <div class="col-6">
                   <a href="index.html" class="btn btn-light border border-secondary btn-user btn-block text-body">
                     <i class="fab fa-google fa-fw"></i> Google
@@ -57,12 +57,12 @@
                     <i class="fab fa-facebook-f fa-fw"></i> Facebook
                   </a>
                 </div>
-              </div>
+              </div> -->
             </form>
-            <div class="text-center mb-2 mt-4">
+            <!-- <div class="text-center mb-2 mt-4">
               <a class="small text-body" href="forgot-password.html">Forgot
                 password?</a>
-            </div>
+            </div> -->
             <p class="small text-center"> Already have an account?<a class="text-wild-watermelon" href="<?= route_to('login') ?>">
                 Sign In! </a></p>
           </div>
