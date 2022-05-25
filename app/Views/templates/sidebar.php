@@ -85,26 +85,31 @@
       <span>Arena Olahraga</span></a>
   </li>
 
-  <!-- <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArena" aria-expanded="true" aria-controls="collapseArena">
-      <i class="fas fa-fw fa-futbol"></i>
-      <span>Data Arena</span>
-    </a>
-    <div id="collapseArena" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Data Master Arena</h6>
-        <a class="collapse-item" href="/admin/arena/main">Daftar Arena</a>
-      </div>
-    </div>
-  </li> -->
-
-  <!-- Nav Item - Utilities Collapse Menu -->
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('admin/field'); ?>">
       <i class="fas fa-fw fa-futbol"></i>
       <span>Lapangan</span></a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArena" aria-expanded="true" aria-controls="collapseArena">
+    <i class="fa-solid fa-calendar"></i>
+      <span>Data Jadwal</span>
+    </a>
+    <div id="collapseArena" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Data Master Arena</h6>
+        <a class="collapse-item" href="/admin/schedule/day">Hari Operasional</a>
+        <a class="collapse-item" href="/admin/schedule/main">Data Jadwal</a>
+        <a class="collapse-item" href="/admin/schedule/detail">Data Detail Jadwal</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Nav Item - Utilities Collapse Menu -->
+
+ 
   
   <!-- Nav Item - Pesanana Collapse Menu -->
   <li class="nav-item">

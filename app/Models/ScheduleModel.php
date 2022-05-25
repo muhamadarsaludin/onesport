@@ -11,6 +11,20 @@ class ScheduleModel extends Model
   protected $useTimestamps = true;
 
 
+  public function getAllSchedule()
+  {
+    $query = "SELECT  `s`.*,`d`.`day`, `d`.`id` as `dayID`, IF(`s`.`day_id`, 1 ,0 ) as `served`
+    FROM `schedule` AS `s`
+    RIGHT JOIN `day` AS `d`
+    ON `s`.`day_id` = `d`.`id`
+    UNION
+    SELECT  `s`.*,`d`.`day`, `d`.`id` as `dayID`,IF(`s`.`day_id`, 1 ,0 ) as `served`
+    FROM `schedule` AS `s`
+    LEFT JOIN `day` AS `d`
+    ON `s`.`day_id` = `d`.`id`
+    ";
+    return $this->db->query($query);
+  }
   public function getScheduleByFieldId($fieldId)
   {
     $query = "SELECT  `s`.*,`d`.`day`, `d`.`id` as `dayID`, IF(`s`.`day_id`, 1 ,0 ) as `served`
