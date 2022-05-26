@@ -34,9 +34,11 @@
 
 <section class="my-5">
   <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h4 class="m-0 font-weight-bold text-primary"><?= $field['field_name']; ?></h4>
+    </div>
     <div class="card-body">
-      <div class="">
-        <h3 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $field['field_name']; ?></h3>
+      
         <!-- <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
         <div class="rating">
           <span class="fa fa-star text-warning"></span>
@@ -46,10 +48,8 @@
           <span class="fa fa-star text-secondary"></span>
           <span class="small">4.2 | 200 Penilaian</span>
         </div> -->
-      </div>
       <!-- Spesifikasi -->
       <section>
-        <hr class="sidebar-divider">
         <?php if (session()->getFlashdata('message')) : ?>
           <div class="alert alert-success" role="alert">
             <?= session()->getFlashdata('message'); ?>

@@ -33,7 +33,7 @@
                 <div class="col-lg-10">
                     <h5 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $venue['venue_name']; ?></h5><span class="badge badge-primary"><?= $venue['level_name']; ?></span>
                     <p class="m-0 mt-1"><?= $venue['address']; ?></p>
-                    <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
+                    <!-- <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
                     <div class="rating">
                         <span class="fa fa-star text-warning"></span>
                         <span class="fa fa-star text-warning"></span>
@@ -41,12 +41,13 @@
                         <span class="fa fa-star text-warning"></span>
                         <span class="fa fa-star text-secondary"></span>
                         <span class="small">4.2 | 200 Penilaian</span>
-                    </div>
+                    </div> -->
+                    <hr class="sidebar-divider">
+                    <h6 class="text-pirmary font-weight-bold">Deskripsi</h6>
+                    <p><?= $venue['description']; ?></p>
                 </div>
             </div>
-            <hr class="sidebar-divider">
-            <h6 class="text-pirmary font-weight-bold">Deskripsi</h6>
-            <p><?= $venue['description']; ?></p>
+            
         </div>
     </div>
 
@@ -66,7 +67,7 @@
                                 <img class="card-img-top img-card-arena" src="/img/venue/arena/fields/main-images/<?= $field['field_image']; ?>">
                                 <div class="card-body">
                                     <h6 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $field['field_name']; ?></h6><span class="badge badge-primary"></span>
-                                    <p class="mt-1"><span class="text-xs">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
+                                    <!-- <p class="mt-1"><span class="text-xs">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
                                     <div class="rating">
                                         <span class="fa fa-star text-warning"></span>
                                         <span class="fa fa-star text-warning"></span>
@@ -74,7 +75,7 @@
                                         <span class="fa fa-star text-warning"></span>
                                         <span class="fa fa-star text-secondary"></span>
                                         <span class="text-xs">4.2 | 200 Penilaian</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </a>

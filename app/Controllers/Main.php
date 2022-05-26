@@ -13,6 +13,7 @@ use App\Models\ArenaImagesModel;
 use App\Models\ArenaFacilitiesModel;
 use App\Models\FieldsModel;
 use App\Models\FieldImagesModel;
+use App\Models\FieldSpecificationsModel;
 use App\Models\FacilitiesModel;
 use App\Models\DayModel;
 use App\Models\ScheduleModel;
@@ -32,6 +33,7 @@ class Main extends BaseController
   protected $arenaImagesModel;
   protected $arenaFacilitiesModel;
   protected $fieldsModel;
+  protected $fieldSpecificationsModel;
   protected $fieldImagesModel;
   protected $facilitiesModel;
   protected $dayModel;
@@ -54,6 +56,7 @@ class Main extends BaseController
     $this->arenaFacilitiesModel = new ArenaFacilitiesModel();
     $this->fieldsModel = new FieldsModel();
     $this->fieldImagesModel = new FieldImagesModel();
+    $this->fieldSpecificationsModel = new FieldSpecificationsModel();
     $this->facilitiesModel = new FacilitiesModel();
     $this->dayModel = new DayModel();
     $this->scheduleModel = new ScheduleModel();
@@ -96,7 +99,8 @@ class Main extends BaseController
       'arena' => $this->arenaModel->getArenaBySlug($slug)->getRowArray(),
     ];
     $data['fields'] = $this->fieldsModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
-    $data['facilities'] = $this->facilitiesModel->getArenaFacilitiesByArenaId($data['arena']['id'])->getResultArray();
+    $data['facilities'] = $this->facilitiesModel->getWhere(['active'=>1])->getResultArray();
+    $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['images'] = $this->arenaImagesModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
     // dd($data);
     return view('public/arena', $data);
@@ -112,8 +116,10 @@ class Main extends BaseController
     $data['schedules'] = $this->scheduleModel->getScheduleByFieldId($data['field']['id'])->getResultArray();
     $data['arena'] = $this->arenaModel->getArenaById($data['field']['arena_id'])->getRowArray();
     $data['venue'] = $this->venueModel->getWhere(['id' => $data['arena']['venue_id']])->getRowArray();
-    $data['facilities'] = $this->facilitiesModel->getArenaFacilitiesByArenaId($data['arena']['id'])->getResultArray();
+    $data['facilities'] = $this->facilitiesModel->getWhere(['active'=>1])->getResultArray();
+    $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['dateChoose'] = false;
+    $data['specs'] = $this->fieldSpecificationsModel->getSpecByFieldId($data['field']['id'])->getResultArray();
 
     $dayname = date('D');
     $date = $this->request->getVar('choose-date');

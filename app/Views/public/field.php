@@ -35,7 +35,44 @@
 
 
 <section class="my-5">
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h4 class="m-0 font-weight-bold text-primary"><?= $field['field_name']; ?></h4>
+    </div>
+    <div class="card-body">
+    <section>
+        <?php if (session()->getFlashdata('message')) : ?>
+          <div class="alert alert-success" role="alert">
+            <?= session()->getFlashdata('message'); ?>
+          </div>
+        <?php endif; ?>
+        <h6 class="text-pirmary font-weight-bold">Spesifikasi Lapangan</h6>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="row mt-2">
+              <?php foreach($specs as $spec): ; ?>
+              <div class="col-6"><?= $spec['spec_name']; ?></div>
+              <div class="col-6 text-dark"><?= $spec['value']; ?></div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Deskripsi -->
+      <section>
+        <hr class="sidebar-divider">
+        <h6 class="text-pirmary font-weight-bold">Deskripsi Lapangan</h6>
+        <div class="mt-1">
+          <p class=""><?= $field['description']; ?></p>
+        </div>
+      </section>
+    </div>
+</div>
+
   <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h6 class="m-0 font-weight-bold text-primary">Info Venue</h6>
+    </div>
     <div class="card-body">
       <div class="row align-items-center justify-content-between">
         <div class="col-lg-2">
@@ -44,7 +81,7 @@
         <div class="col-lg-7">
           <h5 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $arena['venue_name']; ?></h5><span class="badge badge-primary"><?= $arena['level_name']; ?></span>
           <p class="m-0 mt-1"><?= $arena['address']; ?></p>
-          <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
+          <!-- <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
           <div class="rating">
             <span class="fa fa-star text-warning"></span>
             <span class="fa fa-star text-warning"></span>
@@ -52,7 +89,10 @@
             <span class="fa fa-star text-warning"></span>
             <span class="fa fa-star text-secondary"></span>
             <span class="small">4.2 | 200 Penilaian</span>
-          </div>
+          </div> -->
+          <hr class="sidebar-divider">
+          <h6 class="text-pirmary font-weight-bold">Deskripsi</h6>
+          <p><?= $arena['description']; ?></p>
         </div>
         <div class="col-lg-3 text-right">
           <a href="/main/venue/<?= $arena['venue_slug']; ?>" class="btn btn-primary btn-icon-split">
@@ -73,14 +113,24 @@
 
 
       <div class="row align-items-center mt-4">
+        <?php $i = 1; ?>
         <?php foreach ($facilities as $facility) : ?>
-          <?php if ($facility['served']) : ?>
-            <div class="col-lg-3 mb-1 row">
+        <?php
+            $served = false;
+            foreach ($facilities_arena as $fa) {
+            if($facility['id']==$fa['facility_id']){
+                $served=true;
+            }
+            }            
+        ?>
+        <?php if($served): ; ?>
+          <div class="col-lg-3 mb-1 row">
               <div class="col-12">
-                <p><i class="<?= $facility['icon']; ?>"></i> <?= $facility['facility_name']; ?></p>
+              <p><i class="<?= $facility['icon']; ?>"></i> <?= $facility['facility_name']; ?></p>
               </div>
-            </div>
-          <?php endif ?>
+          </div>
+        <?php endif; ?>
+        <?php $i++ ?>
         <?php endforeach; ?>
       </div>
     </div>
