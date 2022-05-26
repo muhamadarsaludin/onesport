@@ -135,7 +135,8 @@ class Main extends BaseController
       'arena' => $this->arenaModel->getArenaBySlug($slug)->getRowArray(),
     ];
     $data['fields'] = $this->fieldsModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
-    $data['facilities'] = $this->facilitiesModel->getArenaFacilitiesByArenaId($data['arena']['id'])->getResultArray();
+    $data['facilities'] = $this->facilitiesModel->getWhere(['active'=>1])->getResultArray();
+    $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['images'] = $this->arenaImagesModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
     // dd($data);
     return view('dashboard/venue/arena/main/detail', $data);

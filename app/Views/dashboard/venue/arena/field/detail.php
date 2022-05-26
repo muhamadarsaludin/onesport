@@ -37,7 +37,7 @@
     <div class="card-body">
       <div class="">
         <h3 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $field['field_name']; ?></h3>
-        <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
+        <!-- <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
         <div class="rating">
           <span class="fa fa-star text-warning"></span>
           <span class="fa fa-star text-warning"></span>
@@ -45,7 +45,7 @@
           <span class="fa fa-star text-warning"></span>
           <span class="fa fa-star text-secondary"></span>
           <span class="small">4.2 | 200 Penilaian</span>
-        </div>
+        </div> -->
       </div>
       <!-- Spesifikasi -->
       <section>
@@ -60,20 +60,10 @@
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="row mt-2">
-              <div class="col-6">Tipe Lantai</div>
-              <div class="col-6 text-dark">Vinyl</div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-6">Panjang Lapangan</div>
-              <div class="col-6 text-dark">25 Meter</div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-6">Lebar Lapangan</div>
-              <div class="col-6 text-dark">15 Meter</div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-6">Ukuran Gawang</div>
-              <div class="col-6 text-dark">2x3 Meter</div>
+              <?php foreach($specs as $spec): ; ?>
+              <div class="col-6"><?= $spec['spec_name']; ?></div>
+              <div class="col-6 text-dark"><?= $spec['value']; ?></div>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>
@@ -86,7 +76,7 @@
         <h6 class="text-pirmary font-weight-bold">Deskripsi</h6>
 
         <div class="mt-1">
-          <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores similique nemo obcaecati consequuntur corrupti omnis eos culpa in vero et maiores ipsa velit, harum inventore provident consequatur corporis delectus cupiditate ipsam iste ab saepe ratione iure earum. Recusandae natus nobis sequi officiis quibusdam culpa eius sed cum maiores magni alias ea error quo quas dolores dolor, quam reprehenderit, perspiciatis velit et. Perspiciatis provident neque rerum suscipit, incidunt magni, officiis minima numquam facere esse nostrum. Magnam odio sequi numquam fugiat assumenda quisquam reprehenderit eaque possimus expedita labore, animi soluta eos, esse sit aliquam deleniti, itaque omnis laborum nemo tenetur at earum!</p>
+          <p class=""><?= $field['description']; ?></p>
         </div>
       </section>
     </div>

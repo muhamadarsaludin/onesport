@@ -12,13 +12,13 @@ class FacilitiesModel extends Model
 
   public function getArenaFacilitiesByArenaId($id)
   {
-    $query = "SELECT `f`.*, IF(`af`.`id`, 1 ,0 ) as `served`
+    $query = "SELECT `f`.*,`a`.`id` AS 'arena_id'
     FROM `facilities` AS `f`
     LEFT JOIN `arena_facilities` AS `af`
     ON `f`.`id` = `af`.`facility_id`
-    LEFT JOIN `arena` as `a`
+    RIGHT JOIN `arena` as `a`
     ON `a`.`id` = `af`.`arena_id`
-    WHERE `a`.`id` = $id OR `a`.`id` IS NULL
+    GROUP BY `f`.`id`
     ";
     return $this->db->query($query);
   }

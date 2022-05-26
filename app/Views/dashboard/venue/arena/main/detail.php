@@ -75,13 +75,21 @@
       <div class="row align-items-center mt-4">
         <?php $i = 1; ?>
         <?php foreach ($facilities as $facility) : ?>
+          <?php
+            $served = false;
+            foreach ($facilities_arena as $fa) {
+              if($facility['id']==$fa['facility_id']){
+                $served=true;
+              }
+            }            
+          ?>
           <div class="col-lg-3 mb-1 row">
             <div class="col-9">
               <p><i class="<?= $facility['icon']; ?>"></i> <?= $facility['facility_name']; ?></p>
             </div>
             <div class="col-3">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" data-facility="<?= $facility['id']; ?>" data-arena="<?= $arena['id']; ?>" class="custom-control-input facilityCheckbox" id="customCheck<?= $i; ?>" <?= $facility['served'] ? 'checked' : ''; ?>>
+                <input type="checkbox" data-facility="<?= $facility['id']; ?>" data-arena="<?= $arena['id']; ?>" class="custom-control-input facilityCheckbox" id="customCheck<?= $i; ?>" <?= $served ? 'checked' : ''; ?>>
                 <label class="custom-control-label" for="customCheck<?= $i; ?>">&nbsp;</label>
               </div>
             </div>
@@ -95,7 +103,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Daftar Lapangan <?= $arena['sport_name']; ?></h6>
-      <a href="/venue/arena/field/Main/add/<?= $arena['slug']; ?>" class="btn btn-primary btn-icon-split">
+      <a href="/venue/arena/field/main/add/<?= $arena['slug']; ?>" class="btn btn-primary btn-icon-split">
         <span class="icon text-white-50">
           <i class="fas fa-plus-square"></i>
         </span>
@@ -135,9 +143,9 @@
                 <td><?= $field['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td><?= $field['rating'] == null ? 'Belum Ada Penilaian' : $field['rating']; ?></td>
                 <td class="text-center">
-                  <a href="/venue/arena/field/Main/detail/<?= $field['slug']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
-                  <a href="/venue/arena/field/Main/edit/<?= $field['slug']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
-                  <form action="/venue/arena/field/Main/<?= $field['id']; ?>" method="POST" class="d-inline form-delete">
+                  <a href="/venue/arena/field/main/detail/<?= $field['slug']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/venue/arena/field/main/edit/<?= $field['slug']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>
+                  <form action="/venue/arena/field/main/<?= $field['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger btn-sm btn-delete"><span class="d-lg-none fa fa-trash"></span><span class="d-none d-lg-inline">Hapus</span></span></button>
@@ -153,9 +161,6 @@
   </div>
 
 </section>
-
-
-
 <?= $this->endSection(); ?>
 
 

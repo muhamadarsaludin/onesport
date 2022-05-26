@@ -250,17 +250,6 @@ class Arena extends BaseController
             ]);
           }
     }
-    // foreach ($images as $image) {
-    //   if (!$image->getError() == 4) {
-    //     // pindahkan file
-    //     $imageName = $image->getRandomName();
-    //     $image->move('img/venue/arena/other-images', $imageName);
-    //     $this->arenaImagesModel->save([
-    //       'arena_id' => $arena['id'],
-    //       'image' => $imageName
-    //     ]);
-    //   }
-    // }
     session()->setFlashdata('message', 'Data Arena berhasil diedit!');
     return redirect()->to('/admin/arena/index/');
   }
