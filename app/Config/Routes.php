@@ -55,6 +55,7 @@ $routes->delete('admin/arena/(:num)', 'Admin\Arena::delete/$1');
 
 // VENUE
 $routes->delete('venue/arena/main/(:num)', 'Venue\Arena\Main::delete/$1');
+$routes->delete('venue/myvenue/banners/main/(:num)', 'Venue\Myvenue\Banners\Main::delete/$1');
 
 
 

@@ -56,7 +56,7 @@ class Main extends BaseController
     $data = [
       'title'  => 'My Venue',
       'active' => 'venue-myvenue',
-      'banners'  => $this->bannersModel->getWhere(['venue_id' => venue()->id, 'active' => 1])->getResultArray(),
+      'banners'  => $this->bannersModel->getWhere(['venue_id' => venue()->id])->getResultArray(),
     ];
     // dd($data);
     return view('dashboard/venue/myvenue/banners/index', $data);
@@ -91,12 +91,13 @@ class Main extends BaseController
     if (!$this->validate([
       'image' => [
         'rules'  => 'uploaded[image]|max_size[image,5024]|ext_in[image,png,jpg,jpeg,svg]',
+        'active' => 'required',
         'errors' => [
           'ext_in' => "Extension must Image",
         ]
       ],
     ])) {
-      return redirect()->to('/admin/banners/add')->withInput()->with('errors', $this->validator->getErrors());;
+      return redirect()->to('/venue/myvenue/banners/main/add')->withInput()->with('errors', $this->validator->getErrors());;
     }
 
     $image = $this->request->getFile('image');
@@ -105,11 +106,13 @@ class Main extends BaseController
     $this->bannersModel->save([
       'image' => $imageName,
       'user_id' => user()->id,
+      'venue_id' => venue()->id,
+      'active' => $this->request->getVar('active'),
       'title' => $this->request->getVar('title'),
       'link' => $this->request->getVar('link'),
     ]);
     session()->setFlashdata('message', 'Banner baru berhasil ditambahkan!');
-    return redirect()->to('/admin/banners');
+    return redirect()->to('/venue/myvenue/banners/main/index');
   }
   // End add data
 
@@ -131,12 +134,13 @@ class Main extends BaseController
     if (!$this->validate([
       'image' => [
         'rules'  => 'max_size[image,5024]|ext_in[image,png,jpg,jpeg,svg]',
+        'active' => 'required',
         'errors' => [
           'ext_in' => "Extension must Image",
         ]
       ],
     ])) {
-      return redirect()->to('/admin/banners/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());;
+      return redirect()->to('/venue/myvenue/banners/main/edit/' . $id)->withInput()->with('errors', $this->validator->getErrors());;
     }
 
     $image = $this->request->getFile('image');
@@ -155,11 +159,12 @@ class Main extends BaseController
       'id'    => $id,
       'image' => $imageName,
       'user_id' => user()->id,
+      'active' => $this->request->getVar('active'),
       'link' => $this->request->getVar('link'),
       'title' => $this->request->getVar('title'),
     ]);
     session()->setFlashdata('message', 'Banner berhasil diubah!');
-    return redirect()->to('/admin/banners');
+    return redirect()->to('/venue/myvenue/banners/main');
   }
 
   // End Edit
@@ -172,6 +177,6 @@ class Main extends BaseController
     unlink('img/banners/' . $banner['image']);
     $this->bannersModel->delete($id);
     session()->setFlashdata('message', 'Banner berhasil dihapus!');
-    return redirect()->to('/admin/banners');
+    return redirect()->to('/venue/myvenue/banners/main');
   }
 }

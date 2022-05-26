@@ -10,11 +10,10 @@
     </div>
   <?php endif; ?>
 
-  <!-- DataTales Example -->
+   <!-- Banner Venue -->
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Banner Venue</h6>
-
+      <h6 class="m-0 font-weight-bold text-primary">Banner Informasi Venue</h6>
       <a href="/venue/myvenue/banners/main/add" class="btn btn-primary btn-icon-split">
         <span class="icon text-white-50">
           <i class="fas fa-plus-square"></i>
@@ -52,7 +51,7 @@
                 <td><?= $i++; ?></td>
                 <td><img src="/img/banners/<?= $banner['image']; ?>" class="w-100" alt=""></td>
                 <td><?= $banner['title']; ?></td>
-                <td><a target="blank" class="btn btn-primary <?= ($banner['link'] ? '' : 'disabled'); ?>" href="<?= $banner['link']; ?>">Kunjugi Halaman</a></td>
+                <td><a target="blank" class="btn btn-sm btn-primary <?= ($banner['link'] ? '' : 'disabled'); ?>" href="<?= $banner['link']; ?>">Kunjugi Halaman</a></td>
                 <td><?= $banner['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td class="text-center">
                   <a href="/venue/myvenue/banners/main/detail/<?= $banner['id']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail</span></a>
