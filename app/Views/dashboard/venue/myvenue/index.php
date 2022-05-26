@@ -25,39 +25,30 @@
 <section class="my-5">
 
   <div class="card shadow mb-4">
+  <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+      <h6 class="m-0 font-weight-bold text-primary">Profile Venue</h6>
+
+      <a href="/venue/myvenue/main/edit" class="btn btn-primary btn-icon-split">
+        <span class="icon text-white-50">
+          <!-- <i class="fas fa-plus-square"></i> -->
+          <i class="fas fa-pencil-alt"></i>
+        </span>
+        <span class="text">Edit Venue</span>
+      </a>
+    </div>
     <div class="card-body">
       <div class="row align-items-center justify-content-between">
-        <div class="col-lg-2">
+        <div class="col-lg-3">
           <img src="/img/venue/logos/<?= $venue['logo']; ?>" alt="" class="w-100">
         </div>
-        <div class="col-lg-10">
-          <h5 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $venue['venue_name']; ?></h5><span class="badge badge-primary"><?= $venue['level_name']; ?></span>
-          <p class="m-0 mt-1"><?= $venue['address']; ?></p>
-          <p class="mt-2 mb-0"><span class="small">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
-          <div class="rating">
-            <span class="fa fa-star text-warning"></span>
-            <span class="fa fa-star text-warning"></span>
-            <span class="fa fa-star text-warning"></span>
-            <span class="fa fa-star text-warning"></span>
-            <span class="fa fa-star text-secondary"></span>
-            <span class="small">4.2 | 200 Penilaian</span>
-          </div>
-        </div>
-        <!-- <div class="col-lg-3 text-right">
-                    <a href="/main/venue/" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-fw fa-door-open"></i>
-                        </span>
-                        <span class="text">Kunjungi Venue</span>
-                    </a>
-                </div> -->
-      </div>
-      <hr class="sidebar-divider">
-      <h6 class="text-pirmary font-weight-bold">Lorem, ipsum.</h6>
-
-
-      <div class="row align-items-center mt-4">
-
+        <div class="col-lg-9">
+          <h4 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $venue['venue_name']; ?></h4><span class="badge badge-primary"><?= $venue['level_name']; ?></span>
+          <p class="m-0 mt-1"><?= $venue['address']; ?> (<?= $venue['postal_code']; ?>)</p>
+          <p class="mb-3"><i class="fa-solid fa-phone"></i> <?= $venue['contact']; ?></p>
+          <h6 class="font-weight-bold d-inline text-gray-700">
+            Deskripsi
+          </h6>
+          <p><?= $venue['description']; ?></p>
       </div>
     </div>
   </div>

@@ -199,7 +199,7 @@ class Main extends BaseController
       return redirect()->to('/dashboard');
     }
     $venueName = $this->request->getVar('venue_name');
-    $slug = strtolower($venueName . '-' . random_string('numeric', 4));
+    $slug = strtolower(url_title($venueName, '-') . '-' . random_string('numeric', 4));
 
     $this->venueModel->save([
       'user_id' => user()->id,

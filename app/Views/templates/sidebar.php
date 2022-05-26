@@ -164,7 +164,7 @@
     <div id="collapseMyVendor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Menu Venue Saya</h6>
-        <!-- <a class="collapse-item" href="/venue/myvenue/main/profile">Profile Venue</a> -->
+        <a class="collapse-item" href="/venue/myvenue/main">Profile Venue</a>
         <a class="collapse-item" href="/venue/myvenue/banners/main/index">Banner Venue</a>
         <!-- <a class="collapse-item" href="#">Upgrade Venue</a> -->
       </div>
