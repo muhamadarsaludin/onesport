@@ -162,7 +162,7 @@ class Main extends BaseController
     ];
     $data['specs'] = $this->fieldSpecificationsModel->getSpecByFieldId($data['field']['id'])->getResultArray();
     $data['images'] = $this->fieldImagesModel->getWhere(['field_id' => $data['field']['id']])->getResultArray();
-    $data['schedules'] = $this->scheduleModel->getScheduleByFieldId($data['field']['id'])->getResultArray();
+    $data['schedules'] = $this->scheduleModel->getScheduleByFieldId($data['field']['id'])->getResultArray(); 
 
     // dd($data);
     return view('dashboard/venue/arena/field/detail', $data);

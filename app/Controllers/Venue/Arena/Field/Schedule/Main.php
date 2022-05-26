@@ -73,6 +73,7 @@ class Main extends BaseController
       'title'  => 'Tambah Jadwal',
       'active' => 'venue-arena',
       'field' => $field,
+      'days' => $this->dayModel->get()->getResultArray(),
       'schedules' => $this->scheduleModel->getScheduleByFieldId($field['id'])->getResultArray(),
       'validation' => \Config\Services::validation(),
     ];
@@ -116,19 +117,62 @@ class Main extends BaseController
       ]);
     }
 
-    session()->setFlashdata('message', 'Lapangan berhasil ditambahkan!');
+    session()->setFlashdata('message', 'Jadwal berhasil ditambahkan!');
     return redirect()->to('/venue/arena/field/schedule/main/detail/' . $schedule['id']);
   }
 
   public function detail($scheduleId)
   {
-
     $data = [
       'title' => 'Detail Jadwal',
-      'schedule' => $this->scheduleModel->getWhere(['id' => $scheduleId])->getRowArray(),
+      'schedule' => $this->scheduleModel->getScheduleById($scheduleId)->getRowArray(),
       'details' => $this->scheduleDetailModel->getWhere(['schedule_id' => $scheduleId])->getResultArray(),
     ];
     $data['field'] = $this->fieldsModel->getWhere(['id' => $data['schedule']['field_id']])->getRowArray();
     return view('dashboard/venue/arena/field/schedule/detail', $data);
+  }
+
+  public function edit($scheduleId)
+  {
+
+    $data = [
+      'title'  => 'Edit Jadwal',
+      'active' => 'venue-arena',
+      'days' => $this->dayModel->get()->getResultArray(),
+      'myschedule' => $this->scheduleModel->getScheduleById($scheduleId)->getRowArray(),
+      'validation' => \Config\Services::validation(),
+    ];
+    $data['field'] = $this->fieldsModel->getWhere(['id'=>$data['myschedule']['field_id']])->getRowArray();
+    $data['schedules'] = $this->scheduleModel->getScheduleByFieldId($data['field']['id'])->getResultArray();
+    // dd($data);
+    return view('dashboard/venue/arena/field/schedule/edit', $data); 
+  }
+
+  public function update($scheduleId)
+  {
+    if (!$this->validate([
+      'day_id' => 'required',
+      'start_time' => 'required',
+      'end_time' => 'required',
+    ])) {
+      return redirect()->to('/venue/arena/field/schedule/main/edit/' . $scheduleId)->withInput()->with('errors', $this->validator->getErrors());
+    }
+    $this->scheduleModel->save([
+      'id' => $scheduleId,
+      'day_id' => $this->request->getVar('day_id'),
+      'start_time' => $this->request->getVar('start_time'),
+      'end_time' => $this->request->getVar('end_time'),
+    ]);
+    session()->setFlashdata('message', 'Jadwal berhasil diedit!');
+    return redirect()->to('/venue/arena/field/schedule/main/detail/' . $scheduleId);
+  }
+  public function delete($scheduleId)
+  {
+    $schedule = $this->scheduleModel->getWhere(['id'=>$scheduleId])->getRowArray();
+    $field = $this->fieldsModel->getWhere(['id'=> $schedule['field_id']])->getRowArray();
+    // dd($schedule,$field);
+    $this->scheduleModel->delete($scheduleId);
+    session()->setFlashdata('message', 'Jadwal berhasil dihapus!');
+    return redirect()->to('/venue/arena/field/Main/detail/' . $field['slug']);
   }
 }

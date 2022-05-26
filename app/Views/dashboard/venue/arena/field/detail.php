@@ -50,12 +50,12 @@
       <!-- Spesifikasi -->
       <section>
         <hr class="sidebar-divider">
-        <h6 class="text-pirmary font-weight-bold">Spesifikasi</h6>
-        <?php if (session()->getFlashdata('spec-message')) : ?>
+        <?php if (session()->getFlashdata('message')) : ?>
           <div class="alert alert-success" role="alert">
-            <?= session()->getFlashdata('spec-message'); ?>
+            <?= session()->getFlashdata('message'); ?>
           </div>
         <?php endif; ?>
+        <h6 class="text-pirmary font-weight-bold">Spesifikasi</h6>
 
         <div class="row">
           <div class="col-12 col-md-6">
@@ -117,7 +117,6 @@
 
             <?php $i = 1; ?>
             <?php foreach ($schedules as $schedule) : ?>
-              <?php if ($schedule['served']) : ?>
                 <tr>
                   <td><?= $i++; ?></td>
                   <td><?= $schedule['day']; ?></td>
@@ -133,7 +132,7 @@
                     </form>
                   </td>
                 </tr>
-              <?php endif; ?>
+
             <?php endforeach; ?>
           </tbody>
         </table>
@@ -144,9 +143,7 @@
 </section>
 
 
-
 <?= $this->endSection(); ?>
-
 
 <?= $this->section('script'); ?>
 <!-- Initialize Swiper -->

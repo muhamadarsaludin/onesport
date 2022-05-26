@@ -70,7 +70,7 @@ class Detail extends BaseController
   {
     $detailSchedule = $this->scheduleDetailModel->getWhere(['id' => $detailId])->getRowArray();
     $data = [
-      'title'  => 'Edit Detail Schedule',
+      'title'  => 'Edit Detail Jadwal',
       'active' => 'venue-arena',
       'detail' => $detailSchedule,
       'validation' => \Config\Services::validation(),
@@ -102,5 +102,47 @@ class Detail extends BaseController
 
     session()->setFlashdata('message', 'Detail schedule berhasil diubah!');
     return redirect()->to('/venue/arena/field/schedule/main/detail/' . $detail['schedule_id']);
+  }
+
+  public function delete($detailId)
+  {
+    $scheduleDetail = $this->scheduleDetailModel->getWhere(['id'=>$detailId])->getRowArray();
+    $schedule = $this->scheduleModel->getWhere(['id'=>$scheduleDetail['schedule_id']])->getRowArray();
+    $this->scheduleDetailModel->delete($detailId);
+    session()->setFlashdata('message', 'Detail jadwal berhasil dihapus!');
+    return redirect()->to('/venue/arena/field/schedule/main/detail/' . $schedule['id']);
+  }
+
+  public function add($scheduleId)
+  {
+    $data = [
+      'title'  => 'Tambah Detail Jadwal',
+      'active' => 'venue-arena',
+      'schedule' => $this->scheduleModel->getWhere(['id'=>$scheduleId])->getRowArray(),
+      'validation' => \Config\Services::validation(),
+    ];
+    return view('dashboard/venue/arena/field/schedule/detail/add', $data);
+  }
+
+  public function save($scheduleId)
+  {
+
+    if (!$this->validate([
+      'start_time' => 'required',
+      'end_time' => 'required',
+      'price' => 'required',
+    ])) {
+      return redirect()->to('/venue/arena/field/schedule/detail/add/' . $scheduleId)->withInput()->with('errors', $this->validator->getErrors());
+    }
+
+    $this->scheduleDetailModel->save([
+      'schedule_id' => $scheduleId,
+      'start_time' => $this->request->getVar('start_time'),
+      'end_time' => $this->request->getVar('end_time'),
+      'price' => $this->request->getVar('price'),
+    ]);
+
+    session()->setFlashdata('message', 'Detail schedule berhasil ditambah!');
+    return redirect()->to('/venue/arena/field/schedule/main/detail/' . $scheduleId);
   }
 }
