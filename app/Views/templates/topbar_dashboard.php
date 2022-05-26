@@ -128,7 +128,7 @@
               <span class="d-none d-lg-inline text-gray-600 small"><?= venue() ? venue()->venue_name : 'Nama Venue Belum diatur'; ?></span>
             </a>
           <?php else : ?>
-            <a class="nav-link" href="/venue/register" id="">
+            <a class="nav-link" href="/main/venueregister" id="">
               <img class="img-profile rounded-circle mr-2" src="/img/venue/logos/default.png">
               <span class="d-none d-lg-inline text-gray-600 small">Daftar Mitra Venue</span>
             </a>

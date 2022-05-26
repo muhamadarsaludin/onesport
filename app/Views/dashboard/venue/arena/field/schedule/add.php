@@ -52,6 +52,15 @@
           </div>
         </div>
 
+        <div class="form-group row">
+          <label for="price" class="col-sm-2 col-form-label">Harga Sewa<sup class="text-danger font-weight-bold">*</sup></label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control form-control-user <?= (session('errors.price') ? 'is-invalid' : ''); ?>" id="price" name="price" value="<?= old('price') ? old('price') : ''; ?>" placeholder="Harga sewa default">
+            <div class="invalid-feedback">
+              <?= $validation->getError('price'); ?>
+            </div>
+          </div>
+        </div>
 
         <div class="text-right" width="100%">
           <a href="/venue/arena/field/Main/detail/<?= $field['slug']; ?>" class="btn btn-secondary btn-sm">Kembali</a>

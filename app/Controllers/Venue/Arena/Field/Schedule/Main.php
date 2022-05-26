@@ -88,6 +88,7 @@ class Main extends BaseController
       'day_id' => 'required',
       'start_time' => 'required',
       'end_time' => 'required',
+      'price' => 'required',
     ])) {
       return redirect()->to('/venue/arena/field/schedule/main/add/' . $field['slug'])->withInput()->with('errors', $this->validator->getErrors());
     }
@@ -95,6 +96,7 @@ class Main extends BaseController
     $dayId = $this->request->getVar('day_id');
     $start = $this->request->getVar('start_time');
     $end = $this->request->getVar('end_time');
+    $price = $this->request->getVar('price');
 
     $this->scheduleModel->save([
       'day_id' => $dayId,
@@ -114,6 +116,7 @@ class Main extends BaseController
         'schedule_id' => $schedule['id'],
         'start_time' => $start_time,
         'end_time' => $end_time,
+        'price' => $price,
       ]);
     }
 
