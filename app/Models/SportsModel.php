@@ -28,6 +28,7 @@ class SportsModel extends Model
     JOIN `arena` AS `a`
     ON `s`.`id` = `a`.`sport_id`
     WHERE `s`.`active` = 1
+    GROUP BY `s`.`id`
     ";
     return $this->db->query($query);
   }

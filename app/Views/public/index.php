@@ -46,9 +46,9 @@
         <h6 class="m-0 font-weight-bold text-primary"><?= $sport['sport_name']; ?></h6>
       </div>
     </div>
+    <div class="row mb-4">
     <?php foreach ($arenas as $arena) : ?>
       <?php if ($arena['sport_id'] == $sport['id']) : ?>
-        <div class="row mb-4">
           <div class="col-12 col-lg-3">
             <a href="/main/arena/<?= $arena['slug']; ?>" class="clear-style">
               <div class="card shadow text-gray-600">
@@ -71,9 +71,9 @@
               </div>
             </a>
           </div>
+          <?php endif; ?>
+          <?php endforeach; ?>
         </div>
-      <?php endif; ?>
-    <?php endforeach; ?>
 
   <?php endforeach; ?>
 </section>

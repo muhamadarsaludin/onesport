@@ -39,7 +39,7 @@
     <div class="card-body">
       <div class="row align-items-center justify-content-between">
         <div class="col-lg-2">
-          <img src="/img/venue/logos/<?= $arena['logo']; ?>" alt="" class="w-100">
+          <img src="/img/venue/logos/<?= $arena['logo']?$arena['logo']:'default.png'; ?>" alt="" class="w-100">
         </div>
         <div class="col-lg-7">
           <h5 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $arena['venue_name']; ?></h5><span class="badge badge-primary"><?= $arena['level_name']; ?></span>

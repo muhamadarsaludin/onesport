@@ -20,7 +20,7 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider">
-
+<?php if(in_groups('admin')):; ?>
   <!-- Heading -->
   <div class="sidebar-heading">
     Admin
@@ -149,7 +149,7 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider">
-
+<?php elseif(in_groups('venue')):; ?>
 
   <!-- Heading -->
   <div class="sidebar-heading">
@@ -227,7 +227,7 @@
       <i class="fas fa-fw fa-cash-register"></i>
       <span>POS</span></a>
   </li> -->
-
+  <?php endif; ?>
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

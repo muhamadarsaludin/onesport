@@ -68,6 +68,8 @@ class Main extends BaseController
       'sports' => $this->sportsModel->getAllSportAvailable()->getResultArray(),
       'arenas' => $this->arenaModel->getAllArena()->getResultArray(),
     ];
+
+    // dd($data);
     return view('public/index', $data);
   }
 
