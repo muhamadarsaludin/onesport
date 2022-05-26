@@ -2,9 +2,10 @@
 
 <?= $this->section('content'); ?>
 <div class="container-fluid overflow-hidden px-0">
+<div class="card shadow mb-4">
+<div class="card-body">
   <div class="row" style="min-height: 100vh;">
-    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-    <div class="col-lg-7 py-4">
+    <div class="col-lg-12 py-4">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col">
           <div class="px-5">
@@ -29,6 +30,14 @@
               </div>
 
               <div class="form-group">
+                <label for="contact" class="small ">Kontak Venue</label>
+                <input type="text" class="form-control form-control-user <?php if (session('errors.contact')) : ?>is-invalid<?php endif ?>" id="contact" name="contact" placeholder="Nama Venue" value="<?= old('contact') ?>">
+                <div class="invalid-feedback">
+                  <?= session('errors.contact'); ?>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label for="description" class="small ">Deskripsi</label>
                 <textarea type="text" class="form-control <?php if (session('errors.description')) : ?>is-invalid<?php endif ?>" id="description" name="description" cols="30" rows="3"><?= old('description') ? old('description') : ''; ?></textarea>
                 <div class="invalid-feedback">
@@ -38,7 +47,7 @@
 
               <div class="form-group">
                 <label for="city" class="small ">Kota</label>
-                <input type="text" class="form-control form-control-user <?php if (session('errors.city')) : ?>is-invalid<?php endif ?>" id="city" name="city" placeholder="Tasikmalaya" value="<?= old('city') ?>">
+                <input type="text" class="form-control form-control-user <?php if (session('errors.city')) : ?>is-invalid<?php endif ?>" id="city" name="city" placeholder="Kota Tasikmalaya" value="<?= old('city') ?>">
                 <div class="invalid-feedback">
                   <?= session('errors.city'); ?>
                 </div>
@@ -67,6 +76,27 @@
                   <?= session('errors.address'); ?>
                 </div>
               </div>
+              
+              <div class="form-group">
+                <label for="address" class="small mb-3">Maps</label>
+                <div id="mapContainer"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="lat" class="small ">Latitude</label>
+                <input type="text" class="form-control form-control-user <?php if (session('errors.lat')) : ?>is-invalid<?php endif ?>" id="lat" name="lat" placeholder="Latitude" value="<?= old('lat') ?>">
+                <div class="invalid-feedback">
+                  <?= session('errors.lat'); ?>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="lng" class="small ">Longitude</label>
+                <input type="text" class="form-control form-control-user <?php if (session('errors.lng')) : ?>is-invalid<?php endif ?>" id="lng" name="lng" placeholder="Longitude" value="<?= old('lng') ?>">
+                <div class="invalid-feedback">
+                  <?= session('errors.lng'); ?>
+                </div>
+              </div>
 
 
               <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -81,4 +111,11 @@
     </div>
   </div>
 </div>
+</div>  
+</div>
+<?= $this->endSection(); ?>
+<?= $this->section('script'); ?>
+<!-- <script>
+  window.action = "submit"
+</script> -->
 <?= $this->endSection(); ?>

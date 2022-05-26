@@ -173,6 +173,12 @@
             </a>
              -->
             <!-- <div class="dropdown-divider"></div> -->
+            <?php if(in_groups('admin')):; ?>
+            <a class="dropdown-item" href="/dashboard">
+              <i class="fas fa-sm fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>
+              Dashboard
+            </a>
+            <?php endif; ?>
             <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
               Logout

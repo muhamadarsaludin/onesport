@@ -182,12 +182,14 @@ class Main extends BaseController
   {
     if (!$this->validate([
       'venue_name' => 'required|is_unique[venue.venue_name]',
+      'contact' => 'required',
       'description' => 'required',
       'city' => 'required',
       'province' => 'required',
+      'postal_code' => 'required',
       'address' => 'required',
-      'postal_code' => 'required',
-      'postal_code' => 'required',
+      'lat' => 'required',
+      'lng' => 'required',
     ])) {
       return redirect()->to('/main/venueregister')->withInput()->with('errors', $this->validator->getErrors());;
     }
@@ -205,11 +207,14 @@ class Main extends BaseController
       'user_id' => user()->id,
       'venue_name' => $venueName,
       'slug' => $slug,
+      'contact' => $this->request->getVar('contact'),
       'description' => $this->request->getVar('description'),
       'city' => $this->request->getVar('city'),
       'province' => $this->request->getVar('province'),
       'postal_code' => $this->request->getVar('postal_code'),
       'address' => $this->request->getVar('address'),
+      'latitude' => $this->request->getVar('lat'),
+      'longitude' => $this->request->getVar('lng'),
     ]);
 
     $group = $this->groupsUsersModel->getWhere(['user_id' => user_id()])->getRowArray();
@@ -220,7 +225,7 @@ class Main extends BaseController
     ]);
 
 
-    session()->setFlashdata('message', 'Venue berhasil dibuat');
+    session()->setFlashdata('message', 'Pendaftaran venue berhasil !');
     return redirect()->to('/dashboard');
   }
 

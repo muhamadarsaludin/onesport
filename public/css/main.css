@@ -37,6 +37,11 @@ body {
   font-family: 'PlusJakartaSans' !important;
 }
 
+#mapContainer{
+  width: 100%;
+  height: 400px;
+}
+
 .video-add,
 .img-add {
   position: relative;
