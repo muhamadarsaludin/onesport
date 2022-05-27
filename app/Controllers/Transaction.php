@@ -110,11 +110,13 @@ class Transaction extends BaseController
   {
     $listOrder = $this->request->getVar('listOrder');
     $bookingDate = $this->request->getVar('bookingDate');
+    $downPayment = $this->request->getVar('dp');
     $totalPay = 0;
     $data = [];
 
     $transCode = strtoupper('SPD-' . random_string('numeric', 6));
 
+    
     $this->transactionModel->save([
       'user_id' => user_id(),
       'transaction_code' => $transCode,
@@ -122,8 +124,6 @@ class Transaction extends BaseController
     ]);
 
     $trans = $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray();
-
-
     foreach ($listOrder as $orderId) {
       $scheduleDetail = $this->scheduleDetailModel->getWhere(['id' => $orderId])->getRowArray();
       $totalPay += $scheduleDetail['price'];
@@ -138,6 +138,20 @@ class Transaction extends BaseController
       }
     }
 
+    
+    $grossAmount = $totalPay;
+    if($downPayment){
+      $totalDp = $totalPay*0.25;
+      $grossAmount = $totalDp;
+      $this->transactionModel->save([
+        'id' => $trans['id'],
+        'total_pay'=> $totalPay,
+        'dp_method' => 1,
+        'total_dp' => $totalDp,
+      ]);
+    }
+
+
     //Set Your server key
     \Midtrans\Config::$serverKey = "SB-Mid-server-0CdKKn0ekLgYSuUWp2V7huR5";
     // Uncomment for production environment
@@ -149,7 +163,7 @@ class Transaction extends BaseController
     $params = array(
       'transaction_details' => array(
         'order_id' => $transCode,
-        'gross_amount' => $totalPay,
+        'gross_amount' => $grossAmount,
       )
     );
 
@@ -158,14 +172,8 @@ class Transaction extends BaseController
     $this->transactionModel->save([
       'id' => $trans['id'],
       'snap_token' => $snapToken,
-      'total_pay' => $totalPay
     ]);
     return $snapToken;
   }
 
-
-
-  public function finish()
-  {
-  }
 }

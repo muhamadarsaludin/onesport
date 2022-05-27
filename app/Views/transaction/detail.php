@@ -24,8 +24,8 @@
             <p><?= date_format(date_create($transaction['transaction_date']), "d F Y"); ?></p>
           </div>
           <div class="col-6">
-            <p class="font-weight-bold">Tanggal Kadaluarsa Transaksi</p>
-            <p><?= date_format(date_create($transaction['transaction_exp_date']), "d F Y"); ?></p>
+            <p class="font-weight-bold">Metode Pembayaran</p>
+            <p><?= $transaction['dp_method']?'Down Payment':'Pembayaran Penuh'; ?></p>
           </div>
         </div>
       </div>
@@ -36,8 +36,8 @@
               <th>No</th>
               <th>Nama Venue</th>
               <th>Lapangan</th>
-              <th>Tanggal Pesan</th>
-              <th>Jadwal</th>
+              <th>Tanggal Main</th>
+              <th>Jam</th>
               <th>Harga</th>
             </tr>
           </thead>
@@ -46,8 +46,8 @@
               <th>No</th>
               <th>Nama Venue</th>
               <th>Lapangan</th>
-              <th>Tanggal Pesan</th>
-              <th>Jadwal</th>
+              <th>Tanggal Main</th>
+              <th>Jam</th>
               <th>Harga</th>
             </tr>
           </tfoot>
@@ -67,15 +67,33 @@
         </table>
       </div>
       <div class="row justify-content-end mt-4">
-        <div class="col-12 col-lg-6 row">
-          <div class="col-4">
-            <h5 class="font-weight-bold">Total Bayar</h5>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-4">
+              <h5 class="font-weight-bold">Total Bayar</h5>
+            </div>
+            <div class="col-8">
+              <h3 class="font-weight-bold text-primary">Rp<?= number_format($transaction['total_pay'], 0, ',', '.'); ?>,-</h3>
+              <?php if(!$transaction['dp_method']): ?>
+                <?php if ($transaction['status_code'] != 200) : ?>
+                  <button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
+                <?php endif; ?>
+              <?php endif; ?>
+            </div>
           </div>
-          <div class="col-8">
-            <h3 class="font-weight-bold text-primary">Rp<?= number_format($transaction['total_pay'], 0, ',', '.'); ?>,-</h3>
-            <?php if ($transaction['status_code'] != 200) : ?>
-              <button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
-            <?php endif; ?>
+          <hr>
+          <div class="row">
+            <div class="col-4">
+              <h6 class="font-weight-bold">Down Payment</h6>
+            </div>
+            <div class="col-8">
+              <h5 class="font-weight-bold text-primary">Rp<?= number_format($transaction['total_dp'], 0, ',', '.'); ?>,-</h5>
+              <?php if($transaction['dp_method']): ?>
+                <?php if ($transaction['status_code'] != 200) : ?>
+                  <button type="button" class="btn btn-primary" id="pay-button">Bayar Down Payment</button>
+                <?php endif; ?>
+              <?php endif; ?>
+            </div>
           </div>
         </div>
       </div>

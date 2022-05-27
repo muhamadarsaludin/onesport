@@ -205,7 +205,16 @@
               </table>
             </div>
             <h6 class="mb-4 font-weight-bold">Total : <span class="text-lg text-primary total-pay"></span></h6>
-            <button class="btn btn-primary w-100" id="btn-pay">Bayar</button>
+            <p class="small">Atau DP(25%) :  <span class="text-primary down-payment"></span></p>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <button class="btn btn-outline-primary w-100" id="btn-dp">Down Payment</button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-primary w-100" id="btn-pay">Bayar</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -262,10 +271,12 @@
         let html = "";
         let i = 1;
         let totalPay = 0;
+        let downPayment =0;
         if (orders.length > 0) {
           console.log(orders);
           orders.forEach((order) => {
             totalPay = totalPay + parseInt(order.price);
+            downPayment = downPayment + (parseInt(order.price)*0.25);
             html += `
           <tr>
             <td>${i++}</td>
@@ -280,25 +291,38 @@
           style: "currency",
           currency: "IDR"
         }).format(totalPay));
+        $(".down-payment").html(new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR"
+        }).format(downPayment));
       }
     });
   }
 
 
   const btnPay = document.getElementById("btn-pay");
+  const btnDp = document.getElementById("btn-dp");
   btnPay.addEventListener("click", () => {
+    order();
+  });
+  btnDp.addEventListener("click", () => {
+    order(true);
+  });
+
+
+  function order(downpayment=false) {
     let bookingDate = document.getElementById("choose-date").value;
     console.log(cart);
     $.ajax({
-      url: "/transaction/order",
+      url: `/transaction/order/`,
       type: "post",
       data: {
         listOrder: cart,
-        bookingDate: bookingDate
+        bookingDate: bookingDate,
+        dp: downpayment   
       },
       success: function(snapToken) {
         console.log(snapToken);
-
         snap.pay(snapToken, {
           // Optional
           onSuccess: function(result) {
@@ -319,6 +343,6 @@
         });
       }
     })
-  });
+  }
 </script>
 <?= $this->endSection(); ?>
