@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin\Venue;
 
 use App\Controllers\BaseController;
-
+use App\Libraries\Pdf;
 use App\Models\VenueModel;
 use App\Models\VenueLevelsModel;
 use App\Models\UsersModel;
@@ -217,5 +217,21 @@ class Main extends BaseController
     $this->venueModel->delete($id);
     session()->setFlashdata('message', 'venue berhasil dihapus!');
     return redirect()->to('/admin/venue/main');
+  }
+
+  public function report()
+  {
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Venue Report " . date('M', $timeReportedAt) . ", " . date("Y", $timeReportedAt),
+      'venue' => $this->venueModel->getAllVenue()->getResultObject(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "venue_report_" . $reportedAt;
+    $pdf->loadView('dashboard/admin/venue/main/report', $data);
   }
 }

@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-
+use App\Libraries\Pdf;
 use App\Models\SpecificationsModel;
 use App\Models\ArenaModel;
 use App\Models\ArenaImagesModel;
@@ -76,5 +76,21 @@ class Field extends BaseController
     ];
     // dd($data);
     return view('dashboard/admin/field/index', $data);
+  }
+
+  public function report()
+  {
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Fields Report " . date('M', $timeReportedAt) . ", " . date("Y", $timeReportedAt),
+      'fields' => $this->fieldsModel->getFields()->getResultObject(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "fields_report_" . $reportedAt;
+    $pdf->loadView('dashboard/admin/field/report', $data);
   }
 }
