@@ -175,11 +175,8 @@
         </form>
         <div class="row">
           <?php foreach ($details as $detail) : ?>
-            <?php foreach($schedules_booked as $sb): ?>
-              <?php $booked = ($detail['id']==$sb['schedule_detail_id'])?true:false; ?>
-              <?php endforeach; ?>
             <div class="col-3 mb-4">
-              <button class="btn <?= $booked?'btn-danger':'btn-light'; ?> w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>" <?= $booked?'disabled':''; ?>>
+              <button class="btn <?= $detail['booked']?'btn-danger':'btn-light'; ?> w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>" <?= $detail['booked']?'disabled':''; ?>>
                 <span class="">(<?= date_format(date_create($detail['start_time']), 'H:i'); ?> - <?= date_format(date_create($detail['end_time']), 'H:i'); ?>)</span>
                 <span> Rp<?= number_format($detail['price'], 0, ',', '.'); ?>,-</span>
               </button>

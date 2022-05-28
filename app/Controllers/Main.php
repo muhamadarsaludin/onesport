@@ -121,7 +121,6 @@ class Main extends BaseController
     $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['dateChoose'] = date('Y-m-d');
     $data['specs'] = $this->fieldSpecificationsModel->getSpecByFieldId($data['field']['id'])->getResultArray();
-    $data['booked']=false;
 
     $dayname = date('D');
     $date = $this->request->getVar('choose-date');

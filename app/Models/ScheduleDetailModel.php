@@ -28,7 +28,7 @@ class ScheduleDetailModel extends Model
   public function getShceduleDetailByDayAndFieldId($day, $fieldId)
   {
 
-    $query = "SELECT  `sd`.*
+    $query = "SELECT  `sd`.*, IF(`td`.`schedule_detail_id`,1,0) as booked
     FROM `schedule_detail` AS `sd`
     JOIN `schedule` AS `s`
     ON `s`.`id` = `sd`.`schedule_id`
@@ -36,6 +36,8 @@ class ScheduleDetailModel extends Model
     ON `d`.`id` = `s`.`day_id`
     JOIN `fields` AS `f`
     ON `f`.`id` = `s`.`field_id`
+    LEFT JOIN `transaction_detail` AS `td`
+    ON `sd`.`id` = `td`.`schedule_detail_id`
     WHERE `f`.`id` = $fieldId 
     AND `d`.`day` = '$day'
     ";
