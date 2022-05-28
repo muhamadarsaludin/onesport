@@ -168,14 +168,24 @@ class Transaction extends BaseController
     \Midtrans\Config::$isSanitized = true;
     // Enable 3D-Secure
     \Midtrans\Config::$is3ds = true;
-    $params = array(
-      'transaction_details' => array(
+
+    $transaction_details = array(
         'order_id' => $transCode,
         'gross_amount' => $grossAmount,
-      )
+    );
+    
+    $customer_details = array(
+      'first_name'    => user()->username,
+      'email'         => user()->email,
     );
 
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
+    $midtransRequest = array(
+      'transaction_details' => $transaction_details,
+      'customer_details' => $customer_details,
+    );
+
+
+    $snapToken = \Midtrans\Snap::getSnapToken($midtransRequest);
 
     $this->transactionModel->save([
       'id' => $trans['id'],
@@ -208,13 +218,25 @@ class Transaction extends BaseController
       \Midtrans\Config::$isSanitized = true;
       // Enable 3D-Secure
       \Midtrans\Config::$is3ds = true;
-      $params = array(
-        'transaction_details' => array(
-          'order_id' => $orderId,
-          'gross_amount' => $sisaBayar,
-        )
-      );
-      $snapToken = \Midtrans\Snap::getSnapToken($params);
+     
+
+      $transaction_details = array(
+        'order_id' => $orderId,
+        'gross_amount' => $sisaBayar,
+    );
+    
+    $customer_details = array(
+      'first_name'    => user()->username,
+      'email'         => user()->email,
+    );
+
+    $midtransRequest = array(
+      'transaction_details' => $transaction_details,
+      'customer_details' => $customer_details,
+    );
+
+
+      $snapToken = \Midtrans\Snap::getSnapToken($midtransRequest);
       return $snapToken;
     }
   }

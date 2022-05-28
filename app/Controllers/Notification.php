@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\TransactionModel;
 use App\Models\RepaymentModel;
+use App\Models\UsersModel;
+use App\Models\NotificationModel;
 
 class Notification extends BaseController
 {
@@ -15,11 +17,15 @@ class Notification extends BaseController
     protected $request;
     protected $transactionModel;
     protected $repaymentModel;
+    protected $usersModel;
+    protected $notificationModel;
 
     public function __construct()
     {
         $this->transactionModel = new TransactionModel();
         $this->repaymentModel = new RepaymentModel();
+        $this->usersModel = new UsersModel();
+        $this->notificationModel = new NotificationModel();
         helper('date');
     }
 
@@ -45,6 +51,14 @@ class Notification extends BaseController
                         'dp_status' => 1,
                         'status_code' => $statusCode
                     ]);
+                    // Kirim Notifikasi 
+                    $user = $this->usersModel->getWhere(['id'=>$transaction['user_id']])->getRowArray();
+                    $this->notificationModel->save([
+                        'user_id' => $user['id'],
+                        'message' => "Yeay...Pembayaran Transaksi ".$transaction['transaction_code'].' kamu berhasil! Minone tunggu kamu di lapangan ya :)',
+                        'link'    => "/transaction/detail/".$transaction['transaction_code']
+                    ]);
+
                 }else{
                 $this->transactionModel->save([
                     'id' => $transaction['id'],
@@ -74,28 +88,35 @@ class Notification extends BaseController
                     'repayment' => 1,
                     'status_code' => $statusCode
                 ]);
+               
+                $user = $this->usersModel->getWhere(['id'=>$transRepay['user_id']])->getRowArray();
+                $this->notificationModel->save([
+                    'user_id' => $user['id'],
+                    'message' => "Yeay...Pelunasan Transaksi ".$transaction['transaction_code'].' kamu berhasil!, Minone tunggu kamu di lapangan ya :)',
+                    'link'    => "/transaction/detail/".$transaction['transaction_code']
+                ]);
             }
         }
     }
 
 
 
-    // public function index()
-    // {
-    //     $data = [
-    //         'menuActive' => false,
-    //         'title' => 'My Notification',
-    //         'notification' => $this->notificationModel->getWhere(['user_id' => user()->id])->getResultArray(),
-    //     ];
-    //     //   dd($data);
-    //     return view('main/notification', $data);
-    // }
-    // public function delete($id)
-    // {
-    //     $this->notificationModel->delete($id);
-    //     session()->setFlashdata('message', 'Notification has been successfully deleted');
-    //     return redirect()->to('/notification');
-    // }
+    public function index()
+    {
+        $data = [
+            'title' => 'My Notification',
+            'notification' => $this->notificationModel->getWhere(['user_id' => user()->id])->getResultArray(),
+        ];
+        //   dd($data);
+        return view('notification/index', $data);
+    }
+    public function delete($id)
+    {
+        $this->notificationModel->delete($id);
+        session()->setFlashdata('message', 'Notifikasi berhasil dihapus!');
+        return redirect()->to('/notification');
+    }
+
     // public function getItemInUserNotification()
     // {
     //     return $this->notificationModel->getWhere(['user_id' => user()->id])->getResultArray();

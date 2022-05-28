@@ -4,7 +4,8 @@
 <?= $this->section('content'); ?>
 
 <section class="my-5">
-<?php if (session()->getFlashdata('message')) : ?>
+  <div class="flash-data" data-flashdata="<?= session()->getFlashdata('message'); ?>"></div>
+  <?php if (session()->getFlashdata('message')) : ?>
     <div class="alert alert-success" role="alert">
       <?= session()->getFlashdata('message'); ?>
     </div>

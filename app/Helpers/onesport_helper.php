@@ -20,3 +20,15 @@ function venue()
     return false;
   }
 }
+
+function notif()
+{
+  if (logged_in()) {
+    $notificationModel = Model('NotificationModel');
+    $notif = $notificationModel->getTheLatestNotifications(user()->id)->getResultArray();
+    if ($notif) {
+      return $notif;
+    }
+    return false;
+  }
+}
