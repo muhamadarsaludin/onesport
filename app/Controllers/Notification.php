@@ -45,7 +45,13 @@ class Notification extends BaseController
                         'dp_status' => 1,
                         'status_code' => $statusCode
                     ]);
-                }
+                }else{
+                $this->transactionModel->save([
+                    'id' => $transaction['id'],
+                    'transaction_status' => $transactionStatus,
+                    'status_code' => $statusCode
+                ]);
+            }
             }else{
                 $this->transactionModel->save([
                     'id' => $transaction['id'],

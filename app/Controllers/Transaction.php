@@ -189,18 +189,18 @@ class Transaction extends BaseController
     $transCode = $this->request->getVar('trans');
     
     $transaction = $this->transactionModel->getWhere(['transaction_code'=> $transCode])->getRowArray();
-
+    
+   
     if(!$transaction['repayment']){
       $orderId = 'RPY-'.$transaction['transaction_code'];
-      $sisaBayar = $transaction['total_pay']-$transaction['total_dp'];
+      $sisaBayar = $transaction['total_pay'] - $transaction['total_dp'];
 
-      $this->repaymentModel->save([
+     $this->repaymentModel->save([
         'code' => $orderId,
         'transaction_id' => $transaction['id'],
         'total_pay' => $sisaBayar
       ]);
-
-
+        
       \Midtrans\Config::$serverKey = "SB-Mid-server-0CdKKn0ekLgYSuUWp2V7huR5";
       // Uncomment for production environment
       \Midtrans\Config::$isProduction = false;
@@ -217,8 +217,6 @@ class Transaction extends BaseController
       $snapToken = \Midtrans\Snap::getSnapToken($params);
       return $snapToken;
     }
-
-
   }
 
 

@@ -165,7 +165,7 @@
 
         <form class="mb-4" method="post">
           <div class="input-group">
-            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date("Y-m-d"); ?>">
+            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>">
             <div class="input-group-append">
               <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
@@ -231,9 +231,11 @@
 <?= $this->section('script'); ?>
 <!-- Initialize Swiper -->
 <script>
+  
   $(document).ready(function() {
     $('#dataTable').DataTable();
   });
+  
 
   $('.banner-container').slick({
     slidesToShow: 1,

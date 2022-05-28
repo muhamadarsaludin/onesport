@@ -34,18 +34,15 @@
         if(!$transaction['dp_method']){
           if($transaction['status_code'] == 200){
             $message = 'Lunas';
-          }
-          if($transaction['status_code'] == 201){
+          }elseif($transaction['status_code'] == 201){
             $message = 'Menunggu Pembayaran';
           }
         }else{
-          if($transaction['status_code'] == 200 && $transaction['repayment']){
+          if($transaction['status_code'] == 200 && $transaction['repayment']==1){
             $message = 'Lunas';
-          }
-          if($transaction['status_code'] == 200){
+          }elseif($transaction['status_code'] == 200){
             $message = 'Down Payment';
-          }
-          if($transaction['status_code'] == 201){
+          }elseif($transaction['status_code'] == 201){
             $message = 'Menunggu Pembayaran';
           }
         }
@@ -123,7 +120,7 @@
             </div>
           </div>
           <?php if($transaction['status_code'] == 200 || $transaction['status_code'] == 201): ?>
-          <?php if($transaction['dp_method']): ?>
+          <?php if($transaction['dp_method'] && !$transaction['repayment']): ?>
             <hr>
             <div class="row">
               <div class="col-4">
@@ -207,17 +204,17 @@
           onSuccess: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
+            $.redirect(`/transaction/detail/${transCode}`, "get", "");
           },
           onPending: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
+            $.redirect(`/transaction/detail/${transCode}`, "get", "");
           },
           onError: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
+            $.redirect(`/transaction/detail/${transCode}`, "get", "");
           }
         });
       }
