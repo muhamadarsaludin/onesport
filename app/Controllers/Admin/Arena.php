@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-
+use App\Libraries\Pdf;
 use App\Models\ArenaModel;
 use App\Models\ArenaImagesModel;
 use App\Models\ArenaFacilitiesModel;
@@ -185,7 +185,7 @@ class Arena extends BaseController
       return redirect()->to('/venue/arena/main/add')->withInput()->with('errors', $this->validator->getErrors());
     }
 
-    $arena = $this->arenaModel->getWhere(['id'=>$id])->getRowArray();
+    $arena = $this->arenaModel->getWhere(['id' => $id])->getRowArray();
     $images =  $this->arenaImagesModel->getWhere(['arena_id' => $arena['id']])->getResultArray();
     $arenaImage = $this->request->getFile('arena_image');
     if ($arenaImage->getError() != 4) {
@@ -193,36 +193,36 @@ class Arena extends BaseController
       $arena['arena_image'] = $arenaImage->getRandomName();
       $arenaImage->move('img/venue/arena/main-images', $arena['arena_image']);
     }
-    if($arena['sport_id']!=$this->request->getVar('sport_id')){
+    if ($arena['sport_id'] != $this->request->getVar('sport_id')) {
       $sport = $this->sportsModel->getWhere(['id' => $this->request->getVar('sport_id')])->getRowArray();
       $arena['sport_id'] = $sport['id'];
       $arena['slug'] = strtolower($sport['slug'] . '-' . random_string('numeric', 4));
     }
-    if($arena['active']!=$this->request->getVar('active')){
+    if ($arena['active'] != $this->request->getVar('active')) {
       $arena['active'] = $this->request->getVar('active');
     }
-    if($arena['description']!=$this->request->getVar('description')){
+    if ($arena['description'] != $this->request->getVar('description')) {
       $arena['description'] = $this->request->getVar('description');
     }
 
-    $oldVenue = $this->venueModel->getWhere(['id'=>$arena['venue_id']])->getRowArray();
+    $oldVenue = $this->venueModel->getWhere(['id' => $arena['venue_id']])->getRowArray();
     $venue = $this->venueModel->getVenueBySlug($this->request->getVar('venue_slug'))->getRowArray();
-    if($oldVenue['id']!=$venue['id']){
-      $arena['venue_id']=$venue['id'];
+    if ($oldVenue['id'] != $venue['id']) {
+      $arena['venue_id'] = $venue['id'];
     }
     // simpan data arena
     $this->arenaModel->save($arena);
 
 
     // IMAGES
-    $oldImages = $this->arenaImagesModel->getWhere(['arena_id'==$id])->getResultArray();
+    $oldImages = $this->arenaImagesModel->getWhere(['arena_id' == $id])->getResultArray();
 
     $images = [];
     for ($i = 1; $i <= 4; $i++) {
       array_push($images, $this->request->getFile('image-' . $i));
     }
 
-    for($i=0; $i < count($oldImages); $i++){
+    for ($i = 0; $i < count($oldImages); $i++) {
       if (!$images[$i]->getError() == 4) {
         // gambar di ganti
         // dapat nama gambar baru
@@ -240,23 +240,19 @@ class Arena extends BaseController
     }
 
     // Gambar tambahan
-    for($i=count($oldImages); $i < 4; $i++){
+    for ($i = count($oldImages); $i < 4; $i++) {
       if (!$images[$i]->getError() == 4) {
-            $imageName = $images[$i]->getRandomName();
-            $images[$i]->move('img/venue/arena/other-images', $imageName);
-            $this->arenaImagesModel->save([
-              'arena_id' => $id,
-              'image' => $imageName
-            ]);
-          }
+        $imageName = $images[$i]->getRandomName();
+        $images[$i]->move('img/venue/arena/other-images', $imageName);
+        $this->arenaImagesModel->save([
+          'arena_id' => $id,
+          'image' => $imageName
+        ]);
+      }
     }
     session()->setFlashdata('message', 'Data Arena berhasil diedit!');
     return redirect()->to('/admin/arena/index/');
   }
-
-  
-
-
 
   public function delete($id)
   {
@@ -276,5 +272,21 @@ class Arena extends BaseController
     $this->arenaModel->delete($id);
     session()->setFlashdata('message', 'Arena berhasil dihapus!');
     return redirect()->to('/admin/arena');
+  }
+
+  public function report()
+  {
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Arena Report " . date('M', $timeReportedAt) . ", " . date("Y", $timeReportedAt),
+      'arena' => $this->arenaModel->getAllArena()->getResultObject(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "arena_report_" . $reportedAt;
+    $pdf->loadView('dashboard/admin/arena/report', $data);
   }
 }

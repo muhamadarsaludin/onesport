@@ -14,13 +14,20 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Arena Olahraga</h6>
-
-      <a href="/admin/arena/add" class="btn btn-primary btn-icon-split">
-        <span class="icon text-white-50">
-          <i class="fas fa-plus-square"></i>
-        </span>
-        <span class="text">Tambah Arena</span>
-      </a>
+      <div class="button-container">
+        <a href="/admin/arena/add" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus-square"></i>
+          </span>
+          <span class="text">Tambah Arena</span>
+        </a>
+        <a href="/admin/arena/report" class="btn btn-primary btn-icon-split" target="_blank">
+          <span class="icon text-white-50">
+            <i class="fas fa-print"></i>
+          </span>
+          <span class="text">Print</span>
+        </a>
+      </div>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -38,7 +45,7 @@
           </thead>
           <tfoot>
             <tr>
-            <th>No</th>
+              <th>No</th>
               <th width="100">Image</th>
               <th>Kode Arena</th>
               <th>Olahraga</th>
@@ -56,7 +63,7 @@
                 <td><?= $arena['slug']; ?></td>
                 <td><?= $arena['sport_name']; ?></td>
                 <td><?= $arena['venue_name']; ?></td>
-                <td><?= $arena['active']==1?'Aktif':'Non Aktif'; ?></td>
+                <td><?= $arena['active'] == 1 ? 'Aktif' : 'Non Aktif'; ?></td>
                 <td class="text-center">
                   <a href="/admin/arena/detail/<?= $arena['slug']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <a href="/admin/arena/edit/<?= $arena['slug']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a>

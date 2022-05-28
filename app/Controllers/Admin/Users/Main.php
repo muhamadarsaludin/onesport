@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin\Users;
 
 use App\Controllers\BaseController;
+use App\Libraries\Pdf;
 use App\Models\GroupsModel;
 use App\Models\UsersModel;
 use App\Models\GroupsUsersModel;
@@ -98,7 +99,7 @@ class Main extends BaseController
       $imageName = $image->getRandomName();
       $image->move('img/users', $imageName);
       // hapus file lama
-      if($oldImage != 'default.png'){
+      if ($oldImage != 'default.png') {
         unlink('img/users/' . $oldImage);
       }
     }
@@ -106,7 +107,7 @@ class Main extends BaseController
       'id'    => $id,
       'username' => $username,
       'email' => $email,
-      'user_image'=> $imageName,
+      'user_image' => $imageName,
       'active' => $this->request->getVar('active'),
       'description' => $this->request->getVar('description'),
     ]);
@@ -115,7 +116,7 @@ class Main extends BaseController
       'id' => $groupUser['id'],
       'group_id' => $this->request->getVar('group_id')
     ]);
-    
+
     session()->setFlashdata('message', 'Data user berhasil diubah!');
     return redirect()->to('/admin/users/main');
   }
@@ -127,5 +128,21 @@ class Main extends BaseController
     $this->usersModel->delete($id);
     session()->setFlashdata('message', 'User berhasil dihapus!');
     return redirect()->to('/admin/users/main');
+  }
+
+  public function report()
+  {
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Users Report " . date('M', $timeReportedAt) . ", " . date("Y", $timeReportedAt),
+      'users' => $this->usersModel->getAllUser()->getResultObject(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "users_report_" . $reportedAt;
+    $pdf->loadView('dashboard/admin/users/main/report', $data);
   }
 }

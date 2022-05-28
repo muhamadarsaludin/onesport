@@ -14,13 +14,20 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Daftar Venue</h6>
-
-      <a href="/admin/venue/main/add" class="btn btn-primary btn-icon-split">
-        <span class="icon text-white-50">
-          <i class="fas fa-plus-square"></i>
-        </span>
-        <span class="text">Tambah Venue</span>
-      </a>
+      <div class="button-container">
+        <a href="/admin/venue/main/add" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus-square"></i>
+          </span>
+          <span class="text">Tambah Venue</span>
+        </a>
+        <a href="/admin/venue/main/report" class="btn btn-primary btn-icon-split" target="_blank">
+          <span class="icon text-white-50">
+            <i class="fas fa-print"></i>
+          </span>
+          <span class="text">Print</span>
+        </a>
+      </div>
     </div>
     <div class="card-body">
       <div class="table-responsive">
