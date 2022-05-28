@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\TransactionModel;
+use App\Models\RepaymentModel;
 
 class Notification extends BaseController
 {
@@ -13,10 +14,12 @@ class Notification extends BaseController
      */
     protected $request;
     protected $transactionModel;
+    protected $repaymentModel;
 
     public function __construct()
     {
         $this->transactionModel = new TransactionModel();
+        $this->repaymentModel = new RepaymentModel();
         helper('date');
     }
 
@@ -31,12 +34,42 @@ class Notification extends BaseController
         $statusCode = $notif->status_code;
 
         $transaction = $this->transactionModel->getWhere(['transaction_code' => $transactionCode])->getRowArray();
+        $repayment = $this->repaymentModel->getWhere(['code' => $transactionCode])->getRowArray();
 
-        $this->transactionModel->save([
-            'id' => $transaction['id'],
-            'transaction_status' => $transactionStatus,
-            'status_code' => $statusCode
-        ]);
+        if($transaction){
+            if($transaction['dp_method']){
+                if($statusCode==200){
+                    $this->transactionModel->save([
+                        'id' => $transaction['id'],
+                        'transaction_status' => $transactionStatus,
+                        'dp_status' => 1,
+                        'status_code' => $statusCode
+                    ]);
+                }
+            }else{
+                $this->transactionModel->save([
+                    'id' => $transaction['id'],
+                    'transaction_status' => $transactionStatus,
+                    'status_code' => $statusCode
+                ]);
+            }
+        }
+
+        if($repayment){
+            $transRepay = $this->transactionModel->getWhere(['id'=>$repayment['transaction_id']])->getRowArray();
+            $this->repaymentModel->save([
+                'id' => $repayment['id'],
+                'status_code' => $statusCode
+            ]);
+            if($statusCode == 200){
+                $this->transactionModel->save([
+                    'id' => $transRepay['id'],
+                    'transaction_status' => $transactionStatus,
+                    'repayment' => 1,
+                    'status_code' => $statusCode
+                ]);
+            }
+        }
     }
 
 

@@ -163,9 +163,9 @@
           </div>
         </div> -->
 
-        <form class="mb-4">
+        <form class="mb-4" method="post">
           <div class="input-group">
-            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date('Y-m-d', time()); ?>">
+            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date("Y-m-d"); ?>">
             <div class="input-group-append">
               <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
@@ -175,8 +175,11 @@
         </form>
         <div class="row">
           <?php foreach ($details as $detail) : ?>
+            <?php foreach($schedules_booked as $sb): ?>
+              <?php $booked = ($detail['id']==$sb['schedule_detail_id'])?true:false; ?>
+              <?php endforeach; ?>
             <div class="col-3 mb-4">
-              <button class="btn btn-light w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>">
+              <button class="btn <?= $booked?'btn-danger':'btn-light'; ?> w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>" <?= $booked?'disabled':''; ?>>
                 <span class="">(<?= date_format(date_create($detail['start_time']), 'H:i'); ?> - <?= date_format(date_create($detail['end_time']), 'H:i'); ?>)</span>
                 <span> Rp<?= number_format($detail['price'], 0, ',', '.'); ?>,-</span>
               </button>
@@ -312,10 +315,11 @@
 
   function order(downpayment=false) {
     let bookingDate = document.getElementById("choose-date").value;
-    console.log(cart);
+
+    // AJAX HARUS GET KARENA DI NIAGAHOSTER NGEBUG!
     $.ajax({
-      url: `/transaction/order/`,
-      type: "post",
+      url: "/transaction/order/",
+      type: "get", 
       data: {
         listOrder: cart,
         bookingDate: bookingDate,
@@ -328,17 +332,17 @@
           onSuccess: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           },
           onPending: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           },
           onError: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           }
         });
       }

@@ -18,11 +18,11 @@ use App\Models\FacilitiesModel;
 use App\Models\DayModel;
 use App\Models\ScheduleModel;
 use App\Models\ScheduleDetailModel;
+use App\Models\TransactionModel;
+use App\Models\TransactionDetailModel;
 
 class Main extends BaseController
 {
-
-
   protected $usersModel;
   protected $groupsUsersModel;
   protected $bannersModel;
@@ -39,9 +39,8 @@ class Main extends BaseController
   protected $dayModel;
   protected $scheduleModel;
   protected $scheduleDetailModel;
-
-
-
+  protected $transactionModel;
+  protected $transactionDetailModel;
 
   public function __construct()
   {
@@ -61,6 +60,8 @@ class Main extends BaseController
     $this->dayModel = new DayModel();
     $this->scheduleModel = new ScheduleModel();
     $this->scheduleDetailModel = new ScheduleDetailModel();
+    $this->transactionModel = new TransactionModel();
+    $this->transactionDetailModel = new TransactionDetailModel();
   }
 
   public function index()
@@ -118,8 +119,9 @@ class Main extends BaseController
     $data['venue'] = $this->venueModel->getWhere(['id' => $data['arena']['venue_id']])->getRowArray();
     $data['facilities'] = $this->facilitiesModel->getWhere(['active'=>1])->getResultArray();
     $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
-    $data['dateChoose'] = false;
+    $data['dateChoose'] = date('Y-m-d');
     $data['specs'] = $this->fieldSpecificationsModel->getSpecByFieldId($data['field']['id'])->getResultArray();
+    $data['booked']=false;
 
     $dayname = date('D');
     $date = $this->request->getVar('choose-date');
@@ -152,6 +154,7 @@ class Main extends BaseController
         break;
     }
 
+    $data['schedules_booked'] = $this->transactionDetailModel->getTransactionDetailByDate($data['dateChoose'])->getResultArray();
     $data['details'] = $this->scheduleDetailModel->getShceduleDetailByDayAndFieldId($hari, $data['field']['id'])->getResultArray();
     // dd($data);
 

@@ -19,6 +19,7 @@ use App\Models\ScheduleModel;
 use App\Models\ScheduleDetailModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
+use App\Models\RepaymentModel;
 use PHPUnit\Util\Json;
 
 class Transaction extends BaseController
@@ -46,6 +47,7 @@ class Transaction extends BaseController
   protected $scheduleDetailModel;
   protected $transactionModel;
   protected $transactionDetailModel;
+  protected $repaymentModel;
 
 
   public function __construct()
@@ -67,6 +69,7 @@ class Transaction extends BaseController
     $this->scheduleDetailModel = new ScheduleDetailModel();
     $this->transactionModel = new TransactionModel();
     $this->transactionDetailModel = new TransactionDetailModel();
+    $this->repaymentModel = new RepaymentModel();
     helper('text');
   }
 
@@ -88,6 +91,7 @@ class Transaction extends BaseController
       'transaction' => $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray(),
       'details' => $this->transactionDetailModel->getTransactionDetailByTransactionCode($transCode)->getResultArray()
     ];
+
     return view('transaction/detail', $data);
   }
 
@@ -113,8 +117,8 @@ class Transaction extends BaseController
     $downPayment = $this->request->getVar('dp');
     $totalPay = 0;
     $data = [];
-
-    $transCode = strtoupper('SPD-' . random_string('numeric', 6));
+    
+    $transCode = strtoupper('ONE-' . random_string('numeric', 6));
 
     
     $this->transactionModel->save([
@@ -140,7 +144,7 @@ class Transaction extends BaseController
 
     
     $grossAmount = $totalPay;
-    if($downPayment){
+    if($downPayment == "true"){
       $totalDp = $totalPay*0.25;
       $grossAmount = $totalDp;
       $this->transactionModel->save([
@@ -151,6 +155,10 @@ class Transaction extends BaseController
       ]);
     }
 
+    $this->transactionModel->save([
+      'id' => $trans['id'],
+      'total_pay'=> $totalPay,
+    ]);
 
     //Set Your server key
     \Midtrans\Config::$serverKey = "SB-Mid-server-0CdKKn0ekLgYSuUWp2V7huR5";
@@ -175,5 +183,43 @@ class Transaction extends BaseController
     ]);
     return $snapToken;
   }
+
+  public function repayment()
+  {
+    $transCode = $this->request->getVar('trans');
+    
+    $transaction = $this->transactionModel->getWhere(['transaction_code'=> $transCode])->getRowArray();
+
+    if(!$transaction['repayment']){
+      $orderId = 'RPY-'.$transaction['transaction_code'];
+      $sisaBayar = $transaction['total_pay']-$transaction['total_dp'];
+
+      $this->repaymentModel->save([
+        'code' => $orderId,
+        'transaction_id' => $transaction['id'],
+        'total_pay' => $sisaBayar
+      ]);
+
+
+      \Midtrans\Config::$serverKey = "SB-Mid-server-0CdKKn0ekLgYSuUWp2V7huR5";
+      // Uncomment for production environment
+      \Midtrans\Config::$isProduction = false;
+      // Enable sanitization
+      \Midtrans\Config::$isSanitized = true;
+      // Enable 3D-Secure
+      \Midtrans\Config::$is3ds = true;
+      $params = array(
+        'transaction_details' => array(
+          'order_id' => $orderId,
+          'gross_amount' => $sisaBayar,
+        )
+      );
+      $snapToken = \Midtrans\Snap::getSnapToken($params);
+      return $snapToken;
+    }
+
+
+  }
+
 
 }
