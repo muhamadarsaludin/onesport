@@ -7,6 +7,6 @@ use CodeIgniter\Model;
 class TransactionModel extends Model
 {
   protected $table = 'transaction';
-  protected $allowedFields = ['user_id', 'transaction_code', 'transaction_date', 'transaction_exp_date', 'total_pay', 'snap_token', 'transaction_status', 'status_code'];
+  protected $allowedFields = ['user_id', 'transaction_code', 'transaction_date', 'transaction_exp_date', 'total_pay', 'dp_method', 'total_dp', 'dp_status', 'repayment', 'snap_token', 'transaction_status', 'status_code'];
   protected $useTimestamps = true;
 }

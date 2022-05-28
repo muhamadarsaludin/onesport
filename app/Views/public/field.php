@@ -163,9 +163,9 @@
           </div>
         </div> -->
 
-        <form class="mb-4">
+        <form class="mb-4" method="post">
           <div class="input-group">
-            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date('Y-m-d', time()); ?>">
+            <input type="date" class="form-control bg-light border-0 small" id="choose-date" name="choose-date" value="<?= $dateChoose ? $dateChoose : date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>">
             <div class="input-group-append">
               <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
@@ -176,7 +176,7 @@
         <div class="row">
           <?php foreach ($details as $detail) : ?>
             <div class="col-3 mb-4">
-              <button class="btn btn-light w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>">
+              <button class="btn <?= $detail['booked']?'btn-danger':'btn-light'; ?> w-100 py-4 btn-detail-scedule" data-id="<?= $detail['id']; ?>" <?= $detail['booked']?'disabled':''; ?>>
                 <span class="">(<?= date_format(date_create($detail['start_time']), 'H:i'); ?> - <?= date_format(date_create($detail['end_time']), 'H:i'); ?>)</span>
                 <span> Rp<?= number_format($detail['price'], 0, ',', '.'); ?>,-</span>
               </button>
@@ -205,7 +205,16 @@
               </table>
             </div>
             <h6 class="mb-4 font-weight-bold">Total : <span class="text-lg text-primary total-pay"></span></h6>
-            <button class="btn btn-primary w-100" id="btn-pay">Bayar</button>
+            <p class="small">Atau DP(25%) :  <span class="text-primary down-payment"></span></p>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <button class="btn btn-outline-primary w-100" id="btn-dp">Down Payment</button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-primary w-100" id="btn-pay">Bayar</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -222,9 +231,11 @@
 <?= $this->section('script'); ?>
 <!-- Initialize Swiper -->
 <script>
+  
   $(document).ready(function() {
     $('#dataTable').DataTable();
   });
+  
 
   $('.banner-container').slick({
     slidesToShow: 1,
@@ -262,10 +273,12 @@
         let html = "";
         let i = 1;
         let totalPay = 0;
+        let downPayment =0;
         if (orders.length > 0) {
           console.log(orders);
           orders.forEach((order) => {
             totalPay = totalPay + parseInt(order.price);
+            downPayment = downPayment + (parseInt(order.price)*0.25);
             html += `
           <tr>
             <td>${i++}</td>
@@ -280,45 +293,59 @@
           style: "currency",
           currency: "IDR"
         }).format(totalPay));
+        $(".down-payment").html(new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR"
+        }).format(downPayment));
       }
     });
   }
 
 
   const btnPay = document.getElementById("btn-pay");
+  const btnDp = document.getElementById("btn-dp");
   btnPay.addEventListener("click", () => {
+    order();
+  });
+  btnDp.addEventListener("click", () => {
+    order(true);
+  });
+
+
+  function order(downpayment=false) {
     let bookingDate = document.getElementById("choose-date").value;
-    console.log(cart);
+
+    // AJAX HARUS GET KARENA DI NIAGAHOSTER NGEBUG!
     $.ajax({
-      url: "/transaction/order",
-      type: "post",
+      url: "/transaction/order/",
+      type: "get", 
       data: {
         listOrder: cart,
-        bookingDate: bookingDate
+        bookingDate: bookingDate,
+        dp: downpayment   
       },
       success: function(snapToken) {
         console.log(snapToken);
-
         snap.pay(snapToken, {
           // Optional
           onSuccess: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           },
           onPending: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           },
           onError: function(result) {
             console.log(result);
             let info = JSON.stringify(result);
-            $.redirect(`/transaction/detail/${result.order_id}`, info, "POST", "");
+            $.redirect(`/transaction/detail/${result.order_id}`, "get", "");
           }
         });
       }
     })
-  });
+  }
 </script>
 <?= $this->endSection(); ?>
