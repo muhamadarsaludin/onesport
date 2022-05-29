@@ -91,7 +91,7 @@
       <i class="fas fa-fw fa-futbol"></i>
       <span>Lapangan</span></a>
   </li>
-
+  
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArena" aria-expanded="true" aria-controls="collapseArena">
     <i class="fa-solid fa-calendar"></i>
@@ -107,6 +107,27 @@
     </div>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransaction" aria-expanded="true" aria-controls="collapseTransaction">
+    <i class="fa-solid fa-receipt fa-fw"></i>
+      <span>Transaksi</span>
+    </a>
+    <div id="collapseTransaction" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Data Transaksi</h6>
+        <a class="collapse-item" href="/admin/transaction">Data Semua Transaksi</a>
+        <a class="collapse-item" href="/admin/transaction/downpayment">Data Downpayment</a>
+        <a class="collapse-item" href="/admin/transaction/canceled">Pembatalan Transaksi</a>
+        <a class="collapse-item" href="/admin/transaction/failed">Data Transaksi Gagal</a>
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
+    
+      <span>Transaksi</span></a>
+  </li>
   <!-- Nav Item - Utilities Collapse Menu -->
 
  
@@ -180,6 +201,22 @@
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Menu Arena</h6>
         <a class="collapse-item" href="/venue/arena/main">Daftar Arena</a>
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransactionVenue" aria-expanded="true" aria-controls="collapseTransactionVenue">
+    <i class="fa-solid fa-receipt fa-fw"></i>
+      <span>Transaksi</span>
+    </a>
+    <div id="collapseTransactionVenue" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Data Transaksi</h6>
+        <a class="collapse-item" href="/venue/transaction">Data Semua Transaksi</a>
+        <a class="collapse-item" href="/venue/transaction/downpayment">Data Downpayment</a>
+        <a class="collapse-item" href="/venue/transaction/canceled">Pembatalan Transaksi</a>
+        <a class="collapse-item" href="/venue/transaction/failed">Data Transaksi Gagal</a>
       </div>
     </div>
   </li>

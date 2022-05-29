@@ -10,6 +10,46 @@ class TransactionModel extends Model
   protected $allowedFields = ['user_id', 'transaction_code', 'transaction_date', 'transaction_exp_date', 'total_pay', 'use_ticket', 'dp_method', 'total_dp', 'dp_status', 'repayment', 'snap_token', 'cancel', 'transaction_status', 'status_code'];
   protected $useTimestamps = true;
 
+  public function getAllTransaction()
+  {
+    $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`
+    FROM `transaction` AS `t`
+    JOIN `transaction_detail` AS `td`
+    ON `t`.`id` = `td`.`transaction_id`
+    JOIN `schedule_detail` AS `sd`
+    ON `sd`.`id` = `td`.`schedule_detail_id`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    JOIN `arena` AS `a`
+    ON `a`.`id` = `f`.`arena_id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
+    ";
+    return $this->db->query($query);
+  }
+  public function getTransactionByVenueId($id)
+  {
+    $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`
+    FROM `transaction` AS `t`
+    JOIN `transaction_detail` AS `td`
+    ON `t`.`id` = `td`.`transaction_id`
+    JOIN `schedule_detail` AS `sd`
+    ON `sd`.`id` = `td`.`schedule_detail_id`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    JOIN `arena` AS `a`
+    ON `a`.`id` = `f`.`arena_id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
+    WHERE `v`.`id` = $id
+    ";
+    return $this->db->query($query);
+  }
+
 
   public function getTransactionByUserId($userId)
   {

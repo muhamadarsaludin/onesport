@@ -22,7 +22,10 @@
             <tr>
               <th>No</th>
               <th>Kode Transaksi</th>
+              <th>Nama Venue</th>
+              <th>Nama Lapangan</th>
               <th>Total Bayar</th>
+              <th>Down Payment</th>
               <th>Tanggal Transaksi</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -32,7 +35,10 @@
             <tr>
               <th>No</th>
               <th>Kode Transaksi</th>
+              <th>Nama Venue</th>
+              <th>Nama Lapangan</th>
               <th>Total Bayar</th>
+              <th>Down Payment</th>
               <th>Tanggal Transaksi</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -46,7 +52,10 @@
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $transaction['transaction_code']; ?></td>
-                <td><?= $transaction['total_pay']; ?></td>
+                <td><?= $transaction['venue_name']; ?></td>
+                <td><?= $transaction['field_name']; ?></td>
+                <td>Rp<?= number_format($transaction['total_pay'], 0, ',', '.'); ?></td>
+                <td>Rp<?= number_format($transaction['total_dp'], 0, ',', '.'); ?></td>
                 <td><?= $transaction['transaction_date']; ?></td>
                 <td><?= $transaction['transaction_status']; ?></td>
                 <td class="text-center">
