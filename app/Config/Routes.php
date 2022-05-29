@@ -37,6 +37,8 @@ $routes->get('/login', 'Auth::login');
 $routes->get('/register', 'Auth::register');
 
 $routes->delete('notification/(:num)', 'Notification::delete/$1');
+// CANCEL TRANSACTION
+$routes->delete('transaction/cancel/(:num)', 'Transaction::cancel/$1');
 
 
 // ADMIN

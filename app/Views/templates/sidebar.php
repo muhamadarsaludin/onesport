@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
     <div class="sidebar-brand-icon">
       <img src="/img/logos/logo.svg" alt="" class="img-responsive" width="70%" alt="Onesport Logo">
     </div>

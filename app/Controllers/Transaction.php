@@ -20,6 +20,7 @@ use App\Models\ScheduleDetailModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
 use App\Models\RepaymentModel;
+use App\Models\RatingModel;
 use PHPUnit\Util\Json;
 
 class Transaction extends BaseController
@@ -48,6 +49,7 @@ class Transaction extends BaseController
   protected $transactionModel;
   protected $transactionDetailModel;
   protected $repaymentModel;
+  protected $ratingModel;
 
 
   public function __construct()
@@ -70,6 +72,7 @@ class Transaction extends BaseController
     $this->transactionModel = new TransactionModel();
     $this->transactionDetailModel = new TransactionDetailModel();
     $this->repaymentModel = new RepaymentModel();
+    $this->ratingModel = new RatingModel();
     helper('text');
   }
 
@@ -77,12 +80,12 @@ class Transaction extends BaseController
   {
     $data = [
       'title'  => 'Transaksi',
-      'transactions' => $this->transactionModel->getWhere(['user_id' => user_id()])->getResultArray(),
+      'transactions' => $this->transactionModel->getTransactionByUserId(user()->id)->getResultArray(),
     ];
+    // dd($data);
     return view('transaction/index', $data);
   }
-
-
+  
   public function detail($transCode)
   {
 
@@ -241,5 +244,55 @@ class Transaction extends BaseController
     }
   }
 
+  public function review($transCode)
+  {
+    $data = [
+      'title' => 'Review Transaksi',
+      'transaction' => $this->transactionModel->getTransactionByCode($transCode)->getRowArray(),
+      'validation' => \Config\Services::validation(),
+  ]; 
+  // dd($data);
+    return view('transaction/review', $data);
+  }
 
+  public function savereview($transCode)
+  {
+
+    if (!$this->validate([
+      'transaction_id' => 'required',
+      'user_id' => 'required',
+      'field_id' => 'required',
+      'venue_id' => 'required',
+      'rating' => 'required',
+    ])) {
+      return redirect()->to('/transaction/review/'.$transCode)->withInput()->with('errors', $this->validator->getErrors());
+    }
+
+    $this->ratingModel->save([
+      'transaction_id' => $this->request->getVar("transaction_id"),
+      'user_id' => $this->request->getVar("user_id"),
+      'field_id' => $this->request->getVar("field_id"),
+      'venue_id' => $this->request->getVar("venue_id"),
+      'rating' => $this->request->getVar("rating"),
+      'review' => $this->request->getVar("review"),
+    ]);
+
+    session()->setFlashdata('message', 'Terimakasih sudah memberikan ulasan!');
+    return redirect()->to('/transaction');
+  }
+
+
+
+  public function cencel($transCode)
+  {
+    $transaction = $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray();
+    $this->transactionModel->save([
+      'id' => $transaction['id'],
+      'cancel' => 1,
+      'status_code' => null,
+      'transaction_status' => 'Canceled'
+    ]);
+    session()->setFlashdata('message', 'Pesanan berhasil di batalkan !');
+    return redirect()->to('/transaction');
+  }
 }

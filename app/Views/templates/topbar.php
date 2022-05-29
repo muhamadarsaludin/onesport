@@ -58,6 +58,7 @@
           <h6 class="dropdown-header">
             Notifikasi
           </h6>
+          <?php if(logged_in() && notif()) :?>
           <?php foreach (notif() as $notif ) : ?>
           <a class="dropdown-item d-flex align-items-center" href="<?= $notif['link']; ?>">
             <div class="mr-3">
@@ -67,38 +68,45 @@
             </div>
             <div>
               <div class="small text-gray-500"><?= date("d F Y", strtotime($notif['created_at'])); ?></div>
-              <span class="font-weight-bold"><?= $notif['message']; ?></span>
+              <span class="text-truncate"><?= $notif['message']; ?></span>
             </div>
           </a>
           <?php endforeach; ?>
           <a class="dropdown-item text-center small text-gray-500" href="/notification">Lihat semua notifikasi!</a>
+          <?php endif; ?>
         </div>
       </li>
 
       <!-- Nav Item - Messages -->
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-ticket-alt fa-fw"></i>
+        <i class="fa-solid fa-receipt fa-fw"></i>
           <!-- Counter - Messages -->
-          <span class="badge badge-danger badge-counter">4</span>
+          <?php if(logged_in() && transaction()): ?>
+          <span class="badge badge-danger badge-counter"><?= count(transaction()); ?></span>
+          <?php endif; ?>
         </a>
         <!-- Dropdown - Messages -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
           <h6 class="dropdown-header">
-            Message Center
+            Transaksi
           </h6>
-          <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="dropdown-list-image mr-3">
-              <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-              <div class="status-indicator bg-success"></div>
+          <?php if(logged_in() && transaction()): ?>
+          <?php foreach(transaction() as $transaction) : ?>
+          <a class="dropdown-item d-flex align-items-center" href="/transaction/detail/<?= $transaction['transaction_code']; ?>">
+            <div class="mr-3">
+              <div class="icon-circle bg-primary">
+                <i class="fa-solid fa-receipt text-white"></i>
+              </div>
             </div>
             <div>
-              <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                told me that people say this to all dogs, even if they aren't good...</div>
-              <div class="small text-gray-500">Chicken the Dog · 2w</div>
+              <div class="text-truncate"><?= $transaction['transaction_code']; ?></div>
+              <div class="small text-gray-500"><?= $transaction['transaction_status']?$transaction['transaction_status']:'Failed'; ?></div>
             </div>
           </a>
-          <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+          <?php endforeach; ?>
+          <a class="dropdown-item text-center small text-gray-500" href="/transaction">Lihat semua transaksi!</a>
+          <?php endif; ?>
         </div>
       </li>
 

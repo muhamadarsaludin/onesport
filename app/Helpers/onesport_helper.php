@@ -32,3 +32,15 @@ function notif()
     return false;
   }
 }
+
+function transaction()
+{
+  if(logged_in()){
+    $transactionModel = Model('TransactionModel');
+    $transaction = $transactionModel->getTheLatestTransaction(user()->id)->getResultArray();
+    if($transaction){
+      return $transaction;
+    }
+    return false;
+  }
+}

@@ -27,6 +27,29 @@ if (flashData) {
     timer: 1500,
   });
 }
+
+// cancel transaction
+// >>>>AlertDanger
+$(".btn-cancel").on("click", function (e) {
+  e.preventDefault();
+  Swal.fire({
+    title: "Batalkan Transaksi?",
+    text: "Dengan mengklik tombol setuju transaksi anda akan dibatalkan secara otomatis. Untuk pengembalian dana Admin Onesport akan menghubungi anda via email max 1x24Jam!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Setuju",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $(this).unbind("click").click();
+    }
+  });
+});
+
+
+
+
 // >>>>AlertDanger
 $(".btn-delete").on("click", function (e) {
   e.preventDefault();
