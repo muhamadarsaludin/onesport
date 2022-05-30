@@ -33,4 +33,19 @@ class VenueModel extends Model
     ";
     return $this->db->query($query);
   }
+
+  public function getVenueSuggest($keyword)
+  {
+    $query = "SELECT `v`.*,`vl`.`level_name`
+    FROM `venue` AS `v`
+    JOIN `venue_levels` AS `vl`
+    ON `vl`.`id` = `v`.`level_id`
+    WHERE `v`.`venue_name` LIKE '%$keyword%' 
+    OR `v`.`slug` LIKE '%$keyword%' 
+    OR `vl`.`level_name` LIKE '%$keyword%'
+    OR `v`.`city` LIKE '%$keyword%' 
+    OR `v`.`province` LIKE '%$keyword%'
+    ";
+    return $this->db->query($query);
+  }
 }

@@ -10,15 +10,32 @@
     </a>
 
     <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form action="/search/result" method="POST" class="search-wrapper d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
       <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Mau main futsal dimana...?" aria-label="Search" aria-describedby="basic-addon2">
+        <input type="text" id="keyword" name="keyword" class="form-control bg-light border-0 small" placeholder="Mau main futsal dimana...?" aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
           <button class="btn btn-primary" type="button">
             <i class="fas fa-search fa-sm"></i>
           </button>
         </div>
       </div>
+      <div class="card shadow search-suggestion d-none mt-3">
+        <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-primary">
+          <h6 class="m-0 font-weight-bold text-white">Hasil Pencarian</h6>
+        </div>
+        <div class="card-body">
+          <div class="list-group list-group-flush d-none suggestVenue">
+              <!-- data suggest vendor -->
+          </div>
+          <div class="list-group list-group-flush d-none suggestField">
+              <!-- data sugest product -->
+          </div>
+  
+          <div class="list-group list-group-flush js-no-data">
+              <!-- data sugest product -->
+          </div>
+        </div>
+        </div>
     </form>
 
     <!-- Topbar Navbar -->

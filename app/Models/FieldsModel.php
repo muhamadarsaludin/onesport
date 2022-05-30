@@ -13,7 +13,7 @@ class FieldsModel extends Model
 
   public function getFields()
   {
-    $query = "SELECT `f`.*, `v`.venue_name
+    $query = "SELECT `f`.*, `v`.`venue_name`
     FROM `fields` AS `f`
     JOIN `arena` AS `a`
     ON `a`.`id` = `f`.`arena_id`
@@ -31,6 +31,23 @@ class FieldsModel extends Model
     JOIN `venue` AS `v`
     ON `v`.`id` = `a`.`venue_id`
     WHERE `v`.`id` = $venueId
+    ";
+    return $this->db->query($query);
+  }
+  public function getFieldSuggest($keyword)
+  {
+    $query = "SELECT `f`.*, `v`.`venue_name`
+    FROM `fields` AS `f`
+    JOIN `arena` AS `a`
+    ON `a`.`id` = `f`.`arena_id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
+    WHERE `v`.`slug` LIKE '%$keyword%' 
+    OR `v`.`venue_name` LIKE '%$keyword%' 
+    OR `v`.`city` LIKE '%$keyword%' 
+    OR `v`.`province` LIKE '%$keyword%'
+    OR `f`.`slug` LIKE '%$keyword%'
+    OR `f`.`field_name` LIKE '%$keyword%'
     ";
     return $this->db->query($query);
   }

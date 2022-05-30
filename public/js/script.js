@@ -103,9 +103,9 @@ $("#keyword").on("keyup keydown", function () {
 });
 
 function cari(keyword) {
-  // var html = "";
-  const suggVendor = document.querySelector(".suggestVendor");
-  const suggProduct = document.querySelector(".suggestProduct");
+
+  const suggVenue = document.querySelector(".suggestVenue");
+  const suggField = document.querySelector(".suggestField");
   const elNoData = $(".js-no-data")[0];
 
   $.ajax({
@@ -113,72 +113,68 @@ function cari(keyword) {
     data: keyword,
     url: "/search?keyword=" + keyword,
     success: function (res) {
-      // console.log(JSON.parse(res));
-      let result = "";
-      let products,
-        vendors = Array();
-      result = JSON.parse(res);
-      console.log(result);
-      vendors = result["vendors"];
-      products = result["products"];
-      let listVendor = "";
-      let listProduct = "";
+      let result = JSON.parse(res);
+      let venues, fields = Array();
+      venues = result['venues']
+      fields = result['fields']
+      let listVenue = "";
+      let listField = "";
       let noData = "";
-      if (vendors.length > 0) {
-        suggVendor.classList.remove("d-none");
-        listVendor += `<h5 class="font-weight-bold">Vendors</h5>`;
-      }
-      vendors.forEach((vendor) => {
-        listVendor += `
-        <a href="/vendor/${vendor["slug"]}" class="list-group-item list-group-item-action">
-          <div class="row align-items-center">
-              <div class="col-2">
-                  <img class="img-product-suggestion rounded-circle" src="/img/vendors/logo/${vendor["vendor_logo"]}">
-              </div>
-              <div class="col-10">
-                  <p class="d-none d-lg-inline small mb-0">${vendor["vendor_name"]}</p>
-              </div>
-          </div>
-      </a>
-        `;
-      });
 
-      if (products.length > 0) {
-        suggProduct.classList.remove("d-none");
-        listProduct += `<h5 class="font-weight-bold">Products</h5>`;
-      }
-      products.forEach((product) => {
-        listProduct += `
-        <a href="/${product["slug"]}" class="list-group-item list-group-item-action">
+      if(venues.length > 0){
+        suggVenue.classList.remove("d-none");
+        listVenue +=`<h6 class="font-weight-bold">Venue</h6>`
+        venues.forEach((venue)=>{
+          listVenue +=`
+          <a href="/main/venue/${venue["slug"]}" class="list-group-item list-group-item-action">
             <div class="row align-items-center">
-                <div class="col-2">
-                    <img class="img-product-suggestion rounded-circle" src="/img/products/main-img/${product["product_main_image"]}">
+                <div class="col-3">
+                    <img class="rounded-circle img-responsive" width="100%" src="/img/venue/logos/${venue["logo"]}">
                 </div>
-                <div class="col-10">
-                    <p class="d-none d-lg-inline small  mb-0">${product["product_name"]}</p>
+                <div class="col-9">
+                    <p class="small mb-0">${venue["venue_name"]}</p>
                 </div>
             </div>
-        </a>
-        `;
-      });
+          </a>
+          `;
+        })
+      }
+      if(fields.length > 0){
+        suggField.classList.remove("d-none");
+        listField +=`<h6 class="font-weight-bold">Lapangan</h6>`
+        fields.forEach((field)=>{
+          listField +=`
+          <a href="/main/field/${field["slug"]}" class="list-group-item list-group-item-action">
+            <div class="row align-items-center">
+                <div class="col-3">
+                    <img class="img-responsive" width="100%" src="/img/venue/arena/fields/main-images/${field["field_image"]}">
+                </div>
+                <div class="col-9">
+                    <p class="small mb-0">${field["field_name"]}</p>
+                </div>
+            </div>
+          </a>
+          `;
+        })
+      }
+      
       // tambahkan hr
-      listVendor += "<hr>";
-      listProduct += "<hr>";
+      listVenue += "<hr>";
+      listField += "<hr>";
 
-      if (products.length == 0 && vendors.length == 0) {
-        suggProduct.classList.add("d-none");
-        suggVendor.classList.add("d-none");
+      if (venues.length == 0 && fields.length == 0) {
+        suggVenue.classList.add("d-none");
+        suggField.classList.add("d-none");
         noData += `
         <div class="col-12">
-          <p class="small mb-0">Can't find any product \"${keyword}\"  </p>
+          <p class="small mb-0">Yah venue atau lapangan "${keyword}" yang kamu cari tidak ada <i class="fa-solid fa-face-sad-tear text-primary"></i>, Yuk move on cari yang lain!</p>
         </div>
         `;
       }
 
-      suggVendor.innerHTML = listVendor;
-      suggProduct.innerHTML = listProduct;
+      suggVenue.innerHTML = listVenue
+      suggField.innerHTML = listField;
       elNoData.innerHTML = noData;
-      console.log(suggVendor);
     },
   });
 }

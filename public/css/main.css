@@ -42,6 +42,21 @@ body {
   height: 400px;
 }
 
+.search-wrapper {
+  position: relative;
+}
+
+.search-suggestion {
+  position: absolute;
+  z-index: 1;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+
+
+
+
 .video-add,
 .img-add {
   position: relative;
@@ -190,3 +205,4 @@ a.clear-style {
 .card-price {
   font-size: 1.3em;
 }
+
