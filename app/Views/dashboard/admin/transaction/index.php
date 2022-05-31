@@ -14,6 +14,12 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Data Transaksi</h6>
+      <a href="/admin/transaction/report_view/" class="btn btn-primary btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fa-solid fa-file-lines"></i>
+        </span>
+        <span class="text">Laporan Transaksi</span>
+      </a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -52,7 +58,7 @@
                 <td><?= $transaction['field_name']; ?></td>
                 <td>Rp<?= number_format($transaction['total_pay'], 0, ',', '.'); ?></td>
                 <td><?= $transaction['transaction_date']; ?></td>
-                <td><?= $transaction['transaction_status']; ?></td>
+                <td><?= $transaction['transaction_status']?$transaction['transaction_status']:'Transaksi Gagal'; ?></td>
                 <td class="text-center">
                   <a href="/admin/transaction/detail/<?= $transaction['transaction_code']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <!-- <a href="/admin/transaction/edit/<?= $transaction['transaction_code']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a> -->

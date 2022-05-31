@@ -119,14 +119,9 @@
         <a class="collapse-item" href="/admin/transaction/downpayment">Data Downpayment</a>
         <a class="collapse-item" href="/admin/transaction/canceled">Pembatalan Transaksi</a>
         <a class="collapse-item" href="/admin/transaction/failed">Data Transaksi Gagal</a>
+        <a class="collapse-item" href="/admin/transaction/report_view">Laporan Transaksi</a>
       </div>
     </div>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
-    
-      <span>Transaksi</span></a>
   </li>
   <!-- Nav Item - Utilities Collapse Menu -->
 
@@ -172,6 +167,7 @@
   <hr class="sidebar-divider">
 
   <?php endif; ?>
+  <?php if(in_groups('venue')):; ?>
   <!-- Heading -->
   <div class="sidebar-heading">
     Venue
@@ -264,7 +260,7 @@
       <i class="fas fa-fw fa-cash-register"></i>
       <span>POS</span></a>
   </li> -->
-  
+  <?php endif; ?>
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

@@ -85,6 +85,10 @@ class Dashboard extends BaseController
           'total_trans_cancel' => count($this->transactionModel->getCountTransactionCancel(venue()->id)->getResultArray()),
           'total_trans_failed' => count($this->transactionModel->getCountTransactionFailed(venue()->id)->getResultArray()),
         ];
+        $earningsFullPayment = $this->transactionModel->earningsFullPayment(venue()->id)->getRowArray();
+        $earningsRepayment = $this->transactionModel->earningsRepayment(venue()->id)->getRowArray();
+        $earningsDP = $this->transactionModel->earningsDP()->getRowArray(venue()->id);
+        $data['total_earnings'] = $earningsFullPayment['sum_pay'] + $earningsRepayment['sum_repay'] + $earningsDP['sum_dp'];
       }else{
         $data = [
           'title'  => 'Dashboard',

@@ -11,34 +11,146 @@ class TransactionModel extends Model
   protected $useTimestamps = true;
 
   
+  public function getMinTransactionDate($venueId = false)
+  {
+      $query = "SELECT min(`transaction_date`) as `min_date`
+      FROM `transaction` AS `t`
+      JOIN `transaction_detail` AS `td`
+      ON `t`.`id` = `td`.`transaction_id`
+      JOIN `schedule_detail` AS `sd`
+      ON `sd`.`id` = `td`.`schedule_detail_id`
+      JOIN `schedule` AS `s`
+      ON `s`.`id` = `sd`.`schedule_id`
+      JOIN `fields` AS `f`
+      ON `f`.`id` = `s`.`field_id`
+      JOIN `arena` AS `a`
+      ON `a`.`id` = `f`.`arena_id`
+      JOIN `venue` AS `v`
+      ON `v`.`id` = `a`.`venue_id`";
+
+      if ($venueId) {
+          $query .= "WHERE `v`.`id` = " . $venueId;
+      }
+
+      $result = $this->db->query($query)->getRow();
+      return date('m/d/Y', strtotime($result->min_date));
+  }
+
+
+
+
   public function earningsFullPayment($venueId=false)
   {
-    
-    $query = "SELECT SUM(`t`.`total_pay`) AS `sum_pay`
-    FROM `transaction` AS `t`
-    WHERE `t`.`status_code` = 200 AND `t`.`dp_method` = 0 AND `t`.`cancel` = 0
-    ";
+   
+    if(!$venueId){
+      $query = "SELECT SUM(`t`.`total_pay`) AS `sum_pay`
+      FROM `transaction` AS `t`
+      WHERE `t`.`status_code` = 200 AND `t`.`dp_method` = 0 AND `t`.`cancel` = 0";
+    }else{
+      $query = "SELECT SUM(`t`.`total_pay`) AS `sum_pay`
+      FROM `transaction` AS `t`
+      JOIN `transaction_detail` AS `td`
+      ON `t`.`id` = `td`.`transaction_id`
+      JOIN `schedule_detail` AS `sd`
+      ON `sd`.`id` = `td`.`schedule_detail_id`
+      JOIN `schedule` AS `s`
+      ON `s`.`id` = `sd`.`schedule_id`
+      JOIN `fields` AS `f`
+      ON `f`.`id` = `s`.`field_id`
+      JOIN `arena` AS `a`
+      ON `a`.`id` = `f`.`arena_id`
+      JOIN `venue` AS `v`
+      ON `v`.`id` = `a`.`venue_id`
+      WHERE `t`.`status_code` = 200 AND `t`.`dp_method` = 0 AND `t`.`cancel` = 0 AND `v`.`id` = $venueId
+      ";
+    }
+
+
     return $this->db->query($query);
   }
 
   public function earningsRepayment($venueId=false)
   {  
-    $query = "SELECT SUM(`t`.`total_pay`) AS `sum_repay`
-    FROM `transaction` AS `t`
-    WHERE `t`.`status_code` = 200 AND `t`.`repayment` = 1 AND `t`.`cancel` = 0
-    ";
+    if(!$venueId){
+      $query = "SELECT SUM(`t`.`total_pay`) AS `sum_repay`
+      FROM `transaction` AS `t`
+      WHERE `t`.`status_code` = 200 AND `t`.`repayment` = 1 AND `t`.`cancel` = 0";
+    }else{
+      $query = "SELECT SUM(`t`.`total_pay`) AS `sum_repay`
+      FROM `transaction` AS `t`
+      JOIN `transaction_detail` AS `td`
+      ON `t`.`id` = `td`.`transaction_id`
+      JOIN `schedule_detail` AS `sd`
+      ON `sd`.`id` = `td`.`schedule_detail_id`
+      JOIN `schedule` AS `s`
+      ON `s`.`id` = `sd`.`schedule_id`
+      JOIN `fields` AS `f`
+      ON `f`.`id` = `s`.`field_id`
+      JOIN `arena` AS `a`
+      ON `a`.`id` = `f`.`arena_id`
+      JOIN `venue` AS `v`
+      ON `v`.`id` = `a`.`venue_id`
+      WHERE `t`.`status_code` = 200 AND `t`.`repayment` = 1 AND `t`.`cancel` = 0 AND `v`.`id` = $venueId
+      ";
+    }
     return $this->db->query($query);
   }
 
   public function earningsDP($venueId=false)
   {  
-    $query = "SELECT SUM(`t`.`total_dp`) AS `sum_dp`
-    FROM `transaction` AS `t`
-    WHERE `t`.`dp_status` = 1 AND `t`.`repayment` = 0 AND `t`.`cancel` = 0
+    if(!$venueId){
+      $query = "SELECT SUM(`t`.`total_dp`) AS `sum_dp`
+      FROM `transaction` AS `t`
+      WHERE `t`.`dp_status` = 1 AND `t`.`repayment` = 0 AND `t`.`cancel` = 0
     ";
+    }else{
+      $query = "SELECT SUM(`t`.`total_dp`) AS `sum_dp`
+      FROM `transaction` AS `t`
+      JOIN `transaction_detail` AS `td`
+      ON `t`.`id` = `td`.`transaction_id`
+      JOIN `schedule_detail` AS `sd`
+      ON `sd`.`id` = `td`.`schedule_detail_id`
+      JOIN `schedule` AS `s`
+      ON `s`.`id` = `sd`.`schedule_id`
+      JOIN `fields` AS `f`
+      ON `f`.`id` = `s`.`field_id`
+      JOIN `arena` AS `a`
+      ON `a`.`id` = `f`.`arena_id`
+      JOIN `venue` AS `v`
+      ON `v`.`id` = `a`.`venue_id`
+      WHERE `t`.`dp_status` = 1 AND `t`.`repayment` = 0 AND `t`.`cancel` = 0 AND `v`.`id` = $venueId
+    ";
+    }
     return $this->db->query($query);
   }
 
+  public function getTransactionBetweenDate($start_date, $end_date, $venueId=false)
+  {
+    $start_date = date('Y-m-d', strtotime($start_date));
+    $end_date = date('Y-m-d', strtotime($end_date));
+
+    $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`
+    FROM `transaction` AS `t`
+    JOIN `transaction_detail` AS `td`
+    ON `t`.`id` = `td`.`transaction_id`
+    JOIN `schedule_detail` AS `sd`
+    ON `sd`.`id` = `td`.`schedule_detail_id`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    JOIN `arena` AS `a`
+    ON `a`.`id` = `f`.`arena_id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
+    WHERE 
+    ";
+    if($venueId){
+      $query .= "`v`.`id` = $venueId AND ";
+    }
+    $query .= "`t`.`transaction_date` BETWEEN '$start_date' AND '$end_date'";
+    return $this->db->query($query);
+  }
   public function getAllTransaction()
   {
     $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`
@@ -58,6 +170,7 @@ class TransactionModel extends Model
     ";
     return $this->db->query($query);
   }
+
   public function getTransactionByVenueId($id)
   {
     $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`

@@ -119,6 +119,7 @@ class Transaction extends BaseController
 
     $data = [
       'title'  => 'Detail Transaksi',
+      'active' => 'admin-transaction',
       'transaction' => $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray(),
       'details' => $this->transactionDetailModel->getTransactionDetailByTransactionCode($transCode)->getResultArray()
     ];
@@ -130,6 +131,35 @@ class Transaction extends BaseController
       $this->transactionModel->delete($id);
       session()->setFlashdata('message', 'Data transaksi berhasil dihapus!');
       return redirect()->to('/admin/transaction');
+  }
+
+
+  public function report_view()
+  {
+      $data = [
+          'title' => 'Laporan Transaksi',
+          'active' => 'admin-transaction',
+          'date_min' => $this->transactionModel->getMinTransactionDate(),
+      ];
+
+      return view('dashboard/admin/transaction/report_view', $data);
+  }
+
+  public function report_pdf($start_date, $end_date)
+  {
+
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Laporan Transaksi " . $start_date . " - " . $end_date,
+      'transactions' => $this->transactionModel->getTransactionBetweenDate($start_date, $end_date)->getResultArray()
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "transaction_report_" . $reportedAt;
+    $pdf->loadView('dashboard/admin/transaction/report', $data);
   }
 
  

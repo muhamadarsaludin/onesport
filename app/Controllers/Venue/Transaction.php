@@ -132,5 +132,34 @@ class Transaction extends BaseController
       return redirect()->to('/venue/transaction');
   }
 
+  public function report_view()
+  {
+      $data = [
+          'title' => 'Laporan Transaksi',
+          'active' => 'admin-transaction',
+          'date_min' => $this->transactionModel->getMinTransactionDate(venue()->id),
+      ];
+
+      return view('dashboard/venue/transaction/report_view', $data);
+  }
+
+  public function report_pdf($start_date, $end_date)
+  {
+
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Laporan Transaksi " . venue()->venue_name ."<br>". $start_date . " - " . $end_date,
+      'transactions' => $this->transactionModel->getTransactionBetweenDate($start_date, $end_date)->getResultArray(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "transaction_report_". venue()->slug ."_". $reportedAt;
+    $pdf->loadView('dashboard/admin/transaction/report', $data);
+  }
+
+
  
 }

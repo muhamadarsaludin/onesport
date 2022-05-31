@@ -58,7 +58,7 @@
                 <td><?= $transaction['transaction_date']; ?></td>
                 <td><?= $transaction['transaction_status']; ?></td>
                 <td class="text-center">
-                  <a href="/admin/transaction/detail/<?= $transaction['transaction_code']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
+                  <a href="/venue/transaction/detail/<?= $transaction['transaction_code']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fas fa-book-open"></i><span class="d-none d-lg-inline">Detail</span></a>
                   <!-- <a href="/admin/transaction/edit/<?= $transaction['transaction_code']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Edit</span></a> -->
                   <!-- <form action="/admin/transaction/<?= $transaction['id']; ?>" method="POST" class="d-inline form-delete">
                     <?= csrf_field(); ?>
