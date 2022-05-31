@@ -195,15 +195,26 @@ class TransactionModel extends Model
 
   public function getTransactionByUserId($userId)
   {
-    $query = "SELECT `t`.*, IF(`r`.`id`, 1,0) AS 'reviewed', `td`.`booking_date`
+    $query = "SELECT `t`.*, IF(`r`.`id`, 1,0) AS 'reviewed', `td`.`booking_date`,`v`.`venue_name`,`f`.`field_name`
     FROM `transaction` AS `t`
     JOIN `transaction_detail` AS `td`
     ON `t`.`id` = `td`.`transaction_id`
     JOIN `users` AS `u`
     ON `u`.`id` = `t`.`user_id`
-    JOIN `rating` AS `r`
+    LEFT JOIN `rating` AS `r`
     ON `t`.`id` = `r`.`transaction_id`
+    JOIN `schedule_detail` AS `sd`
+    ON `sd`.`id` = `td`.`schedule_detail_id`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    JOIN `arena` AS `a`
+    ON `a`.`id` = `f`.`arena_id`
+    JOIN `venue` AS `v`
+    ON `v`.`id` = `a`.`venue_id`
     WHERE `u`.`id` = $userId 
+    GROUP BY `t`.`id`
     ";
     return $this->db->query($query);
   }

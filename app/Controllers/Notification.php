@@ -43,6 +43,7 @@ class Notification extends BaseController
         $repayment = $this->repaymentModel->getWhere(['code' => $transactionCode])->getRowArray();
 
         if($transaction){
+            $user = $this->usersModel->getWhere(['id'=>$transaction['user_id']])->getRowArray();
             if($transaction['dp_method']){
                 if($statusCode==200){
                     $this->transactionModel->save([
@@ -52,7 +53,7 @@ class Notification extends BaseController
                         'status_code' => $statusCode
                     ]);
                     // Kirim Notifikasi 
-                    $user = $this->usersModel->getWhere(['id'=>$transaction['user_id']])->getRowArray();
+                    
                     $this->notificationModel->save([
                         'user_id' => $user['id'],
                         'message' => "Yeay...Pembayaran Transaksi ".$transaction['transaction_code'].' kamu berhasil! Minone tunggu kamu di lapangan ya :)',
@@ -60,18 +61,25 @@ class Notification extends BaseController
                     ]);
 
                 }else{
-                $this->transactionModel->save([
-                    'id' => $transaction['id'],
-                    'transaction_status' => $transactionStatus,
-                    'status_code' => $statusCode
-                ]);
-            }
+                    $this->transactionModel->save([
+                        'id' => $transaction['id'],
+                        'transaction_status' => $transactionStatus,
+                        'status_code' => $statusCode
+                    ]);
+                }
             }else{
                 $this->transactionModel->save([
                     'id' => $transaction['id'],
                     'transaction_status' => $transactionStatus,
                     'status_code' => $statusCode
                 ]);
+                if($statusCode==200){
+                    $this->notificationModel->save([
+                        'user_id' => $user['id'],
+                        'message' => "Yeay...Pembayaran Transaksi ".$transaction['transaction_code'].' kamu berhasil! Minone tunggu kamu di lapangan ya :)',
+                        'link'    => "/transaction/detail/".$transaction['transaction_code']
+                    ]);
+                }
             }
         }
 

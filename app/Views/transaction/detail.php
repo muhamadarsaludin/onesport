@@ -14,6 +14,14 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Datail Transaksi</h6>
+      <?php if($transaction['status_code']==200): ?>
+      <a href="/transaction/report/<?= $transaction['transaction_code']; ?>" class="btn btn-primary btn-icon-split" target="blank">
+        <span class="icon text-white-50">
+          <i class="fas fa-print"></i>
+        </span>
+        <span class="text">Cetak Bukti Transaksi</span>
+      </a>
+      <?php endif; ?>
     </div>
     <div class="card-body">
 
@@ -112,7 +120,7 @@
             </div>
             <div class="col-8">
               <h3 class="font-weight-bold text-primary">Rp<?= number_format($transaction['total_pay'], 0, ',', '.'); ?>,-</h3>
-              <?php if(!$transaction['dp_method']): ?>
+              <?php if(!$transaction['dp_method'] && !$transaction['cancel']): ?>
                 <?php if ($transaction['status_code'] != 200) : ?>
                   <button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
                 <?php endif; ?>
@@ -129,13 +137,13 @@
               <div class="col-8">
                 <h5 class="font-weight-bold text-primary">Rp<?= number_format($transaction['total_dp'], 0, ',', '.'); ?>,-</h5>
                 
-                    <?php if ($transaction['status_code'] == 201) : ?>
+                    <?php if ($transaction['status_code'] == 201 && !$transaction['cancel']) : ?>
                       <button type="button" class="btn btn-primary" id="pay-button">Bayar Down Payment</button>
                     <?php endif; ?>
               </div>
             </div>
             
-            <?php if($transaction['dp_status'] && !$transaction['repayment']): ?>
+            <?php if($transaction['dp_status'] && !$transaction['repayment'] && !$transaction['cancel']): ?>
               <hr>
               <div class="row">
                 <div class="col-4">

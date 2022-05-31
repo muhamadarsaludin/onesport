@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Pdf;
 use App\Models\UsersModel;
 use App\Models\GroupsUsersModel;
 use App\Models\BannersModel;
@@ -82,7 +83,6 @@ class Transaction extends BaseController
       'title'  => 'Transaksi',
       'transactions' => $this->transactionModel->getTransactionByUserId(user()->id)->getResultArray(),
     ];
-    // dd($data);
     return view('transaction/index', $data);
   }
   
@@ -96,6 +96,24 @@ class Transaction extends BaseController
     ];
 
     return view('transaction/detail', $data);
+  }
+
+  public function report($transCode)
+  {
+    $pdf = new Pdf();
+    
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Bukti Transaksi",
+      'transaction' => $this->transactionModel->getWhere(['transaction_code' => $transCode])->getRowArray(),
+      'details' => $this->transactionDetailModel->getTransactionDetailByTransactionCode($transCode)->getResultArray()
+    ];
+
+    $pdf->setPaper('A5', 'landscape');
+    $pdf->filename = "bukti_transaksi_" . $data['transaction']['transaction_code'];
+    $pdf->loadView('transaction/report', $data);
   }
 
 

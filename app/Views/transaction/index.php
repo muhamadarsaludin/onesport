@@ -123,7 +123,7 @@
                 <td><?= $transaction['transaction_status']; ?></td>
                 <td class="text-center">
                   <a href="/transaction/detail/<?= $transaction['transaction_code']; ?>" class="btn btn-info btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Detail Transaksi</span></a>
-                  <?php if(!$transaction['reviewed']): ?>
+                  <?php if(!$transaction['reviewed'] && $transaction['status_code'] == 200): ?>
                   <a href="/transaction/review/<?= $transaction['transaction_code']; ?>" class="btn btn-warning btn-sm"><i class="d-lg-none fa fa-pencil-alt"></i><span class="d-none d-lg-inline">Beri Penilaian</span></a>
                   <?php endif; ?>
                 </td>
