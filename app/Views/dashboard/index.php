@@ -126,7 +126,24 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Transaksi Berhasil</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_trans_success; ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($total_trans_success); ?></div>
+                    </div>
+                    <div class="col-auto">
+                    <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Transaksi Lunas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= (count($total_trans_success) - count($total_trans_dp)); ?></div>
                     </div>
                     <div class="col-auto">
                     <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>
@@ -143,7 +160,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Transaksi Down payment</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_trans_dp; ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($total_trans_dp); ?></div>
                     </div>
                     <div class="col-auto">
                     <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>
@@ -160,7 +177,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Menunggu Pembayaran</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_trans_pending; ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($total_trans_pending); ?></div>
                     </div>
                     <div class="col-auto">
                     <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>
@@ -176,7 +193,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                             Transaksi Dibatalkan!</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_trans_cancel; ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($total_trans_cancel); ?></div>
                     </div>
                     <div class="col-auto">
                     <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>
@@ -192,7 +209,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                             Transaksi Gagal!</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_trans_failed; ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($total_trans_failed); ?></div>
                     </div>
                     <div class="col-auto">
                     <i class="fa-solid fa-receipt fa-2x text-gray-300"></i>

@@ -79,11 +79,11 @@ class Dashboard extends BaseController
           'total_arena' => count($this->arenaModel->getWhere(['venue_id'=>venue()->id])->getResultArray()),
           'total_lapangan' => count($this->fieldsModel->getFieldsByVenueid(venue()->id)->getResultArray()),
           'total_transaksi' => count($this->transactionModel-> getTransactionByVenueId(venue()->id)->getResultArray()),
-          'total_trans_success' => count($this->transactionModel->getCountTransactionSuccess(venue()->id)->getResultArray()),
-          'total_trans_pending' => count($this->transactionModel->getCountTransactionPending(venue()->id)->getResultArray()),
-          'total_trans_dp' => count($this->transactionModel->getCountTransactionDP(venue()->id)->getResultArray()),
-          'total_trans_cancel' => count($this->transactionModel->getCountTransactionCancel(venue()->id)->getResultArray()),
-          'total_trans_failed' => count($this->transactionModel->getCountTransactionFailed(venue()->id)->getResultArray()),
+          'total_trans_success' => $this->transactionModel->getCountTransactionSuccess(venue()->id)->getResultArray(),
+          'total_trans_pending' => $this->transactionModel->getCountTransactionPending(venue()->id)->getResultArray(),
+          'total_trans_dp' => $this->transactionModel->getCountTransactionDP(venue()->id)->getResultArray(),
+          'total_trans_cancel' => $this->transactionModel->getCountTransactionCancel(venue()->id)->getResultArray(),
+          'total_trans_failed' => $this->transactionModel->getCountTransactionFailed(venue()->id)->getResultArray(),
         ];
         $earningsFullPayment = $this->transactionModel->earningsFullPayment(venue()->id)->getRowArray();
         $earningsRepayment = $this->transactionModel->earningsRepayment(venue()->id)->getRowArray();
@@ -98,17 +98,18 @@ class Dashboard extends BaseController
           'total_arena' => $this->arenaModel->countAll(),
           'total_lapangan' => $this->fieldsModel->countAll(),
           'total_transaksi' => $this->transactionModel->countAll(),
-          'total_trans_success' => count($this->transactionModel->getCountTransactionSuccess()->getResultArray()),
-          'total_trans_pending' => count($this->transactionModel->getCountTransactionPending()->getResultArray()),
-          'total_trans_dp' => count($this->transactionModel->getCountTransactionDP()->getResultArray()),
-          'total_trans_cancel' => count($this->transactionModel->getCountTransactionCancel()->getResultArray()),
-          'total_trans_failed' => count($this->transactionModel->getCountTransactionFailed()->getResultArray()),
+          'total_trans_success' => $this->transactionModel->getCountTransactionSuccess()->getResultArray(),
+          'total_trans_pending' => $this->transactionModel->getCountTransactionPending()->getResultArray(),
+          'total_trans_dp' => $this->transactionModel->getCountTransactionDP()->getResultArray(),
+          'total_trans_cancel' => $this->transactionModel->getCountTransactionCancel()->getResultArray(),
+          'total_trans_failed' => $this->transactionModel->getCountTransactionFailed()->getResultArray()
         ];
         $earningsFullPayment = $this->transactionModel->earningsFullPayment()->getRowArray();
         $earningsRepayment = $this->transactionModel->earningsRepayment()->getRowArray();
         $earningsDP = $this->transactionModel->earningsDP()->getRowArray();
         $data['total_earnings'] = $earningsFullPayment['sum_pay'] + $earningsRepayment['sum_repay'] + $earningsDP['sum_dp'];
       }
+      
       return view('dashboard/index', $data);
     }
   }
