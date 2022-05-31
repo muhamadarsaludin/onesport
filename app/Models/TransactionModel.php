@@ -10,7 +10,28 @@ class TransactionModel extends Model
   protected $allowedFields = ['user_id', 'transaction_code', 'transaction_date', 'transaction_exp_date', 'total_pay', 'use_ticket', 'dp_method', 'total_dp', 'dp_status', 'repayment', 'snap_token', 'cancel', 'transaction_status', 'status_code'];
   protected $useTimestamps = true;
 
-  
+  public function cekTransVenue($transCode, $venueId)
+  {
+    $query = "SELECT `t`.*
+      FROM `transaction` AS `t`
+      JOIN `transaction_detail` AS `td`
+      ON `t`.`id` = `td`.`transaction_id`
+      JOIN `schedule_detail` AS `sd`
+      ON `sd`.`id` = `td`.`schedule_detail_id`
+      JOIN `schedule` AS `s`
+      ON `s`.`id` = `sd`.`schedule_id`
+      JOIN `fields` AS `f`
+      ON `f`.`id` = `s`.`field_id`
+      JOIN `arena` AS `a`
+      ON `a`.`id` = `f`.`arena_id`
+      JOIN `venue` AS `v`
+      ON `v`.`id` = `a`.`venue_id`
+      WHERE `t`.`transaction_code` = '$transCode' AND `v`.`id` = $venueId 
+      ";
+      return $this->db->query($query);
+  }
+
+
   public function getMinTransactionDate($venueId = false)
   {
       $query = "SELECT min(`transaction_date`) as `min_date`
@@ -189,6 +210,7 @@ class TransactionModel extends Model
     JOIN `venue` AS `v`
     ON `v`.`id` = `a`.`venue_id`
     WHERE `v`.`id` = $id
+    GROUP BY `t`.`id`
     ";
     return $this->db->query($query);
   }

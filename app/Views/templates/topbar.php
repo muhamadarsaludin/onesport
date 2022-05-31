@@ -85,7 +85,7 @@
             </div>
             <div>
               <div class="small text-gray-500"><?= date("d F Y", strtotime($notif['created_at'])); ?></div>
-              <span class="text-truncate"><?= $notif['message']; ?></span>
+              <span class=""><?= $notif['message']; ?></span>
             </div>
           </a>
           <?php endforeach; ?>
