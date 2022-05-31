@@ -4,6 +4,7 @@ namespace App\Controllers\Venue\Arena\Field;
 
 use App\Controllers\BaseController;
 
+use App\Libraries\Pdf;
 use App\Models\SpecificationsModel;
 use App\Models\ArenaModel;
 use App\Models\ArenaImagesModel;
@@ -311,6 +312,23 @@ class Main extends BaseController
     }
     session()->setFlashdata('message', 'Lapangan berhasil dihapus!');
     return redirect()->to('/venue/arena/main/detail/'.$arena['slug']);
+  }
+
+
+  public function report()
+  {
+    $pdf = new Pdf();
+    $reportedAt = date('YmdS-His');
+    $timeReportedAt = strtotime(preg_replace('/(\d+)(\w+)-(\d+)/i', '$1$3', $reportedAt));
+
+    $data = [
+      'title' => "Fields Report " . venue()->venue_name ." ". date('M', $timeReportedAt) . ", " . date("Y", $timeReportedAt),
+      'fields' => $this->fieldsModel->getFieldsByVenueid(venue()->id)->getResultArray(),
+    ];
+
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->filename = "fields_report_" . $reportedAt;
+    $pdf->loadView('dashboard/venue/arena/field/report', $data);
   }
 
 }

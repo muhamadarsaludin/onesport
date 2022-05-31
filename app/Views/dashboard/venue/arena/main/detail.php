@@ -103,12 +103,20 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">Daftar Lapangan <?= $arena['sport_name']; ?></h6>
-      <a href="/venue/arena/field/main/add/<?= $arena['slug']; ?>" class="btn btn-primary btn-icon-split">
-        <span class="icon text-white-50">
-          <i class="fas fa-plus-square"></i>
-        </span>
-        <span class="text">Tambah Lapangan</span>
-      </a>
+      <div>
+        <a href="/venue/arena/field/main/add/<?= $arena['slug']; ?>" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus-square"></i>
+          </span>
+          <span class="text">Tambah Lapangan</span>
+        </a>
+        <a href="/venue/arena/field/main/report" class="btn btn-primary btn-icon-split" target="blank">
+          <span class="icon text-white-50">
+            <i class="fas fa-print"></i>
+          </span>
+          <span class="text">Print</span>
+        </a>
+      </div>
     </div>
     <div class="card-body">
       <div class="table-responsive">
