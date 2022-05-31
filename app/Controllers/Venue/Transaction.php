@@ -78,7 +78,7 @@ class Transaction extends BaseController
     $data = [
       'title'  => 'Data Transaksi',
       'active' => 'venue-transaction',
-      'transactions'  => $this->transactionModel->getAllTransaction()->getResultArray(),
+      'transactions'  => $this->transactionModel->getTransactionByVenueId(venue()->id)->getResultArray(),
     ];
     
     return view('dashboard/venue/transaction/index', $data);
