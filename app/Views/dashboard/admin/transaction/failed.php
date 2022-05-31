@@ -45,7 +45,7 @@
           <tbody>
             <?php $i = 1; ?>
             <?php foreach ($transactions as $transaction) : ?>
-            <?php if($transaction['status_code']!=200 || $transaction['status_code']!=201) : ?>
+            <?php if($transaction['status_code'] != 200 && $transaction['status_code'] != 201) : ?>
               <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $transaction['transaction_code']; ?></td>

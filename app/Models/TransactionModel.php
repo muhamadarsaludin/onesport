@@ -155,18 +155,19 @@ class TransactionModel extends Model
   {
     $query = "SELECT `t`.*,`f`.`id` AS `field_id`,`f`.`field_name`,`f`.`field_image`,`v`.`id` AS `venue_id`,`v`.`venue_name`
     FROM `transaction` AS `t`
-    JOIN `transaction_detail` AS `td`
+    LEFT JOIN `transaction_detail` AS `td`
     ON `t`.`id` = `td`.`transaction_id`
-    JOIN `schedule_detail` AS `sd`
+    LEFT JOIN `schedule_detail` AS `sd`
     ON `sd`.`id` = `td`.`schedule_detail_id`
-    JOIN `schedule` AS `s`
+    LEFT JOIN `schedule` AS `s`
     ON `s`.`id` = `sd`.`schedule_id`
-    JOIN `fields` AS `f`
+    LEFT JOIN `fields` AS `f`
     ON `f`.`id` = `s`.`field_id`
-    JOIN `arena` AS `a`
+    LEFT JOIN `arena` AS `a`
     ON `a`.`id` = `f`.`arena_id`
-    JOIN `venue` AS `v`
+    LEFT JOIN `venue` AS `v`
     ON `v`.`id` = `a`.`venue_id`
+    GROUP BY `t`.`id`
     ";
     return $this->db->query($query);
   }
@@ -358,7 +359,7 @@ class TransactionModel extends Model
     }
     $query = "SELECT `t`.* 
     FROM `transaction` AS `t`
-    WHERE `t`.`status_code` = 200 AND `t`.`cancel` = 1
+    WHERE `t`.`cancel` = 1
     ";
     return $this->db->query($query);
   }
