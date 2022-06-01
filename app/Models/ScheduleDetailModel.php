@@ -43,4 +43,49 @@ class ScheduleDetailModel extends Model
     ";
     return $this->db->query($query);
   }
+
+  public function getPricesVenue()
+  {
+    $query = "SELECT MIN(`sd`.`price`) AS `start_from`, `v`.`id` AS `venue_id`
+    FROM `schedule_detail` AS `sd`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    JOIN `arena` AS `a`
+    ON `f`.`arena_id` = `a`.`id`
+    JOIN `venue` AS `v`
+    ON `a`.`venue_id` = `v`.`id`
+    GROUP BY `v`.`id`
+
+    ";
+    return $this->db->query($query);
+  }
+  public function getPricesField()
+  {
+    $query = "SELECT MIN(`sd`.`price`) AS `start_from`, `f`.`id` AS `field_id`
+    FROM `schedule_detail` AS `sd`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    GROUP BY `f`.`id`
+
+    ";
+    return $this->db->query($query);
+  }
+  public function getPricesByFieldId($fieldId)
+  {
+    $query = "SELECT MIN(`sd`.`price`) AS `start_from`, `f`.`id` AS `field_id`
+    FROM `schedule_detail` AS `sd`
+    JOIN `schedule` AS `s`
+    ON `s`.`id` = `sd`.`schedule_id`
+    JOIN `fields` AS `f`
+    ON `f`.`id` = `s`.`field_id`
+    WHERE `f`.`id` = $fieldId
+    GROUP BY `f`.`id`
+
+    ";
+    return $this->db->query($query);
+  }
 }

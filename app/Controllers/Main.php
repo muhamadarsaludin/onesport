@@ -20,6 +20,7 @@ use App\Models\ScheduleModel;
 use App\Models\ScheduleDetailModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
+use App\Models\RatingModel;
 
 class Main extends BaseController
 {
@@ -41,6 +42,7 @@ class Main extends BaseController
   protected $scheduleDetailModel;
   protected $transactionModel;
   protected $transactionDetailModel;
+  protected $ratingModel;
 
   public function __construct()
   {
@@ -62,6 +64,7 @@ class Main extends BaseController
     $this->scheduleDetailModel = new ScheduleDetailModel();
     $this->transactionModel = new TransactionModel();
     $this->transactionDetailModel = new TransactionDetailModel();
+    $this->ratingModel = new RatingModel();
   }
 
   public function index()
@@ -72,6 +75,8 @@ class Main extends BaseController
       'sports' => $this->sportsModel->getAllSportAvailable()->getResultArray(),
       'arenas' => $this->arenaModel->getAllArena()->getResultArray(),
     ];
+    $data['ratings'] =  $this->ratingModel->getRatingVenue()->getResultArray();
+    $data['prices'] =  $this->scheduleDetailModel->getPricesVenue()->getResultArray();
 
     // dd($data);
     return view('public/index', $data);
@@ -87,6 +92,10 @@ class Main extends BaseController
     $data['arenas'] = $this->arenaModel->getArenaByVenueSlug($data['venue']['slug'])->getResultArray();
     $data['fields'] = $this->fieldsModel->getFieldsByVenueId($data['venue']['id'])->getResultArray();
     $data['banners'] = $this->bannersModel->getWhere(['venue_id' => $data['venue']['id'], 'active' => 1])->getResultArray();
+    $data['ratings'] =  $this->ratingModel->getRatingVenue()->getResultArray();
+    $data['prices'] =  $this->scheduleDetailModel->getPricesVenue()->getResultArray();
+    $data['ratings_field'] =  $this->ratingModel->getRatingField()->getResultArray();
+    $data['prices_field'] =  $this->scheduleDetailModel->getPricesField()->getResultArray();
     // dd($data);
     return view('public/venue', $data);
   }
@@ -103,6 +112,10 @@ class Main extends BaseController
     $data['facilities'] = $this->facilitiesModel->getWhere(['active'=>1])->getResultArray();
     $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['images'] = $this->arenaImagesModel->getWhere(['arena_id' => $data['arena']['id']])->getResultArray();
+    $data['ratings'] =  $this->ratingModel->getRatingVenue()->getResultArray();
+    $data['prices'] =  $this->scheduleDetailModel->getPricesVenue()->getResultArray();
+    $data['ratings_field'] =  $this->ratingModel->getRatingField()->getResultArray();
+    $data['prices_field'] =  $this->scheduleDetailModel->getPricesField()->getResultArray();
     // dd($data);
     return view('public/arena', $data);
   }
@@ -121,6 +134,11 @@ class Main extends BaseController
     $data['facilities_arena'] = $this->arenaFacilitiesModel->getWhere(['arena_id'=>$data['arena']['id']])->getResultArray();
     $data['dateChoose'] = date('Y-m-d');
     $data['specs'] = $this->fieldSpecificationsModel->getSpecByFieldId($data['field']['id'])->getResultArray();
+    $data['ratings'] =  $this->ratingModel->getRatingVenue()->getResultArray();
+    $data['prices'] =  $this->scheduleDetailModel->getPricesVenue()->getResultArray();
+    $data['list_rating'] =  $this->ratingModel->getListRatingByFieldId($data['field']['id'])->getResultArray();
+    $data['ratings_field'] =  $this->ratingModel->getRatingByFieldId($data['field']['id'])->getRowArray();
+    $data['prices_field'] =  $this->scheduleDetailModel->getPricesByFieldId($data['field']['id'])->getRowArray();
 
     $dayname = date('D');
     $date = $this->request->getVar('choose-date');

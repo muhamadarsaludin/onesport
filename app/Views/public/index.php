@@ -55,15 +55,31 @@
                 <img class="card-img-top img-card-arena" src="/img/venue/arena/main-images/<?= $arena['arena_image']; ?>">
                 <div class="card-body">
                   <h6 class="m-0 font-weight-bold d-inline mr-2 text-gray-700"><?= $arena['venue_name']; ?></h6><span class="badge badge-primary"><?= $arena['level_name']; ?></span>
-                  <!-- <p class="mt-1"><span class="text-xs">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format(150000, 0, ',', '.'); ?>,-</span></p>
+                  <?php foreach($prices as $price): ?>
+                  <?php if($price['venue_id']==$arena['venue_id']): ?>
+                  <p class="mt-1"><span class="text-xs">start from</span> <span class="card-price text-primary font-weight-bold text-lg">Rp<?= number_format($price['start_from'], 0, ',', '.'); ?>,-</span></p>
+                  <?php endif; ?>
+                  <?php endforeach; ?>
                   <div class="rating">
+                    <?php 
+                    $ratingValue=0;
+                    $amountRating=0;
+                    foreach($ratings as $rating){
+                      if($arena['venue_id'] == $rating['venue_id']){
+                        $ratingValue = $rating['rating_value'];
+                        $amountRating = $rating['amount_rating'];
+
+                      }
+                    }
+                    ?>
+                    <?php for($i=0; $i< floor($ratingValue); $i++) :?>
                     <span class="fa fa-star text-warning"></span>
-                    <span class="fa fa-star text-warning"></span>
-                    <span class="fa fa-star text-warning"></span>
-                    <span class="fa fa-star text-warning"></span>
-                    <span class="fa fa-star text-secondary"></span>
-                    <span class="text-xs">4.2 | 200 Penilaian</span>
-                  </div> -->
+                    <?php endfor; ?>
+                    <?php for($i=floor($ratingValue); $i<5; $i++) :?>
+                      <span class="fa fa-star text-secondary"></span>
+                    <?php endfor; ?>
+                    <span class="text-xs"><?= number_format($ratingValue, 1); ?> | <?= $amountRating; ?> Penilaian</span>
+                  </div>
                 </div>
                 <div class="card-footer">
                   <p class="m-0"><?= $arena['city']; ?></p>
