@@ -329,6 +329,7 @@ class Main extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "fields_report_" . $reportedAt;
     $pdf->loadView('dashboard/venue/arena/field/report', $data);
+    exit();
   }
 
 }

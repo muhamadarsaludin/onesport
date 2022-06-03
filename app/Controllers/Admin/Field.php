@@ -92,5 +92,6 @@ class Field extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "fields_report_" . $reportedAt;
     $pdf->loadView('dashboard/admin/field/report', $data);
+    exit();
   }
 }

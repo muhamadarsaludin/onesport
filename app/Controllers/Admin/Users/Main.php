@@ -144,5 +144,6 @@ class Main extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "users_report_" . $reportedAt;
     $pdf->loadView('dashboard/admin/users/main/report', $data);
+    exit();
   }
 }

@@ -143,5 +143,6 @@ class Pos extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "transaction_report_". venue()->slug ."_". $reportedAt;
     $pdf->loadView('dashboard/admin/transaction/report', $data);
+    exit();
   }
 }

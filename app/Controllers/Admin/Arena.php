@@ -288,5 +288,6 @@ class Arena extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "arena_report_" . $reportedAt;
     $pdf->loadView('dashboard/admin/arena/report', $data);
+    exit();
   }
 }

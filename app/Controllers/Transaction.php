@@ -114,6 +114,7 @@ class Transaction extends BaseController
     $pdf->setPaper('A5', 'landscape');
     $pdf->filename = "bukti_transaksi_" . $data['transaction']['transaction_code'];
     $pdf->loadView('transaction/report', $data);
+    exit();
   }
 
 

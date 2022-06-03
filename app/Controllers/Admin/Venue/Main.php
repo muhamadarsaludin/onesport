@@ -233,5 +233,6 @@ class Main extends BaseController
     $pdf->setPaper('A4', 'landscape');
     $pdf->filename = "venue_report_" . $reportedAt;
     $pdf->loadView('dashboard/admin/venue/main/report', $data);
+    exit();
   }
 }
